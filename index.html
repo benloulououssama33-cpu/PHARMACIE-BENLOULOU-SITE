@@ -3,184 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صيدلية بن لولو - حي أينورار</title>
+    <title>صيدلية بن لولو - المتجر الكامل</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Cairo', sans-serif; scroll-behavior: smooth; }
-        .hero-bg { background: linear-gradient(135deg, #0d9488 0%, #065f46 100%); }
-        .product-card { transition: all 0.3s ease; display: flex; flex-direction: column; height: 100%; }
-        .product-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1); }
-        
-        .img-container {
-            width: 100%;
-            height: 180px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-            background: white;
-        }
-        .img-container img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 100; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+        body { font-family: 'Cairo', sans-serif; scroll-behavior: smooth; background-color: #f0fdf4; } 
+        .hero-bg { background: linear-gradient(135deg, #065f46 0%, #064e3b 100%); }
+        .product-card { transition: all 0.3s ease; display: flex; flex-direction: column; height: 100%; background: white; border-radius: 20px; overflow: hidden; border: 1px solid #d1fae5; }
+        .product-card:hover { transform: translateY(-10px); box-shadow: 0 20px 25px -5px rgba(6, 78, 59, 0.1); }
+        .img-container { width: 100%; height: 220px; display: flex; align-items: center; justify-content: center; padding: 15px; background: white; }
+        .img-container img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(6, 78, 59, 0.8); z-index: 100; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
         .modal.active { display: flex; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="text-gray-800">
 
     <!-- Header -->
-    <header class="bg-white shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+    <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-emerald-100">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <img src="https://i.ibb.co/C3tQkBgs/SDS-PNG.png" alt="لوجو صيدلية بن لولو" class="h-14 w-auto object-contain">
-                <h1 class="text-xl md:text-2xl font-bold text-teal-700">صيدلية بن لولو</h1>
+                <img src="https://i.ibb.co/C3tQkBgs/SDS-PNG.png" alt="لوجو صيدلية بن لولو" class="h-14">
+                <h1 class="text-2xl font-bold text-emerald-900">صيدلية بن لولو</h1>
             </div>
-            <div class="hidden md:flex gap-6 font-bold text-teal-600">
-                <a href="tel:+213558061159" class="hover:text-orange-500 transition">📞 0558 06 11 59</a>
-            </div>
+            <a href="tel:+213558061159" class="bg-emerald-600 text-white px-5 py-2 rounded-full font-bold text-sm shadow-md">📞 0558 06 11 59</a>
         </div>
     </header>
 
     <!-- Hero -->
     <section class="hero-bg text-white py-16 px-4 text-center">
-        <h2 class="text-3xl md:text-5xl font-bold mb-4">صيدلية بن لولو ترحب بكم</h2>
-        <p class="text-lg opacity-90">القرارة، ولاية غرداية - حي أينورار</p>
+        <h2 class="text-3xl md:text-5xl font-bold mb-4">صيدلية بن لولو - حي أينورار</h2>
+        <p class="text-lg opacity-90">القائمة الكاملة لمنتجاتنا بين يديك الآن.</p>
     </section>
 
-    <main id="catalog" class="max-w-7xl mx-auto px-4 py-12">
-        
-        <!-- 1. فئة الحفاضات والنظافة (كل المنتجات) -->
-        <h3 class="text-2xl font-bold mb-8 text-teal-800 border-r-4 border-orange-500 pr-3">الحفاضات ومستلزمات النظافة</h3>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-16">
-            <div class="product-card bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
-                <div class="img-container"><img src="https://shopicornermarket.com/wp-content/uploads/2025/05/1000010459.jpg"></div>
-                <h4 class="font-bold text-center mt-3 flex-grow text-sm md:text-base">حفاضات CAN BEBE N1 P/9</h4>
-                <button onclick="openOrderModal('CAN BEBE N1')" class="w-full mt-3 bg-teal-600 text-white py-2 rounded-lg font-bold">طلب المنتج</button>
-            </div>
-            <div class="product-card bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
-                <div class="img-container"><img src="https://shopicornermarket.com/wp-content/uploads/2025/05/1000010465.jpg"></div>
-                <h4 class="font-bold text-center mt-3 flex-grow text-sm md:text-base">حفاضات CAN BEBE N2 P/9</h4>
-                <button onclick="openOrderModal('CAN BEBE N2')" class="w-full mt-3 bg-teal-600 text-white py-2 rounded-lg font-bold">طلب المنتج</button>
-            </div>
-            <div class="product-card bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
-                <div class="img-container"><img src="https://shopicornermarket.com/wp-content/uploads/2025/05/1000010794.png"></div>
-                <h4 class="font-bold text-center mt-3 flex-grow text-sm md:text-base">حفاضات CAN BEBE N3 P/9</h4>
-                <button onclick="openOrderModal('CAN BEBE N3')" class="w-full mt-3 bg-teal-600 text-white py-2 rounded-lg font-bold">طلب المنتج</button>
-            </div>
-            <div class="product-card bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
-                <div class="img-container"><img src="https://parapharmaciebelaouane.com/wp-content/uploads/2024/03/uniform-couche-ad.png"></div>
-                <h4 class="font-bold text-center mt-3 flex-grow text-sm md:text-base">حفاضات كبار السن UNIFORM</h4>
-                <button onclick="openOrderModal('UNIFORM Adult')" class="w-full mt-3 bg-teal-600 text-white py-2 rounded-lg font-bold">طلب المنتج</button>
-            </div>
-            <div class="product-card bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
-                <div class="img-container"><img src="https://pharmacie-denni.dz/wp-content/uploads/2025/05/64.png"></div>
-                <h4 class="font-bold text-center mt-3 flex-grow text-sm md:text-base">Douce Plus Talc Bébé 100G</h4>
-                <button onclick="openOrderModal('Douce Plus Talc')" class="w-full mt-3 bg-teal-600 text-white py-2 rounded-lg font-bold">طلب المنتج</button>
-            </div>
-            <div class="product-card bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
-                <div class="img-container"><img src="https://www.pharmaciemelouki.com/wp-content/uploads/2023/03/19340-63813008434253000029.png"></div>
-                <h4 class="font-bold text-center mt-3 flex-grow text-sm md:text-base">HIPOSOL TALC Bébé 100G</h4>
-                <button onclick="openOrderModal('HIPOSOL TALC')" class="w-full mt-3 bg-teal-600 text-white py-2 rounded-lg font-bold">طلب المنتج</button>
-            </div>
-        </div>
+    <!-- المنتجات الكاملة -->
+    <main class="max-w-7xl mx-auto px-4 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <script>
+                const products = [
+                    {name: 'CAN BEBE N1 P/9', img: 'https://shopicornermarket.com/wp-content/uploads/2025/05/1000010459.jpg'},
+                    {name: 'CAN BEBE N2 P/9', img: 'https://shopicornermarket.com/wp-content/uploads/2025/05/1000010465.jpg'},
+                    {name: 'CAN BEBE N3 P/9', img: 'https://shopicornermarket.com/wp-content/uploads/2025/05/1000010794.png'},
+                    {name: 'حفاضات كبار UNIFORM', img: 'https://parapharmaciebelaouane.com/wp-content/uploads/2024/03/uniform-couche-ad.png'},
+                    {name: 'Douce Plus Talc 100G', img: 'https://pharmacie-denni.dz/wp-content/uploads/2025/05/64.png'},
+                    {name: 'جل موف Moov 100G', img: 'https://thiqapharmacy.com/wp-content/uploads/2024/03/MOOV-RAPID-RELIEF-OINTMENT-100-G.JPG-jpg.webp'},
+                    {name: 'جل فولترين Voltaren', img: 'https://www.soin-et-nature.com/media/cache/shop_product_large_thumbnail/products/5/3/3/3/9/53339.jpg'},
+                    {name: 'BIOMAX OMEGA 3.6.9', img: 'https://biomax.dz/api/file/3454'}
+                ];
 
-        <!-- 2. فئة المفاصل (كل المنتجات) -->
-        <h3 class="text-2xl font-bold mb-8 text-teal-800 border-r-4 border-orange-500 pr-3">علاجات آلام المفاصل والعظام</h3>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mb-16">
-            <div class="product-card bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
-                <div class="img-container"><img src="https://www.soin-et-nature.com/media/cache/shop_product_large_thumbnail/products/5/3/3/3/9/53339.jpg"></div>
-                <h4 class="font-bold text-center mt-3 flex-grow text-sm md:text-base">جل فولترين (Voltaren 1%)</h4>
-                <button onclick="openOrderModal('Voltaren Gel')" class="w-full mt-3 bg-teal-600 text-white py-2 rounded-lg font-bold">طلب المنتج</button>
-            </div>
-            <div class="product-card bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
-                <div class="img-container"><img src="https://thiqapharmacy.com/wp-content/uploads/2024/03/MOOV-RAPID-RELIEF-OINTMENT-100-G.JPG-jpg.webp"></div>
-                <h4 class="font-bold text-center mt-3 flex-grow text-sm md:text-base">جل موف (Moov 100G)</h4>
-                <button onclick="openOrderModal('Moov 100G')" class="w-full mt-3 bg-teal-600 text-white py-2 rounded-lg font-bold">طلب المنتج</button>
-            </div>
-            <div class="product-card bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
-                <div class="img-container"><img src="https://soukare.com/image/catalog/Pharmacy/Bulk2/15354.jpg"></div>
-                <h4 class="font-bold text-center mt-3 flex-grow text-sm md:text-base">جل موف (Moov 50G)</h4>
-                <button onclick="openOrderModal('Moov 50G')" class="w-full mt-3 bg-teal-600 text-white py-2 rounded-lg font-bold">طلب المنتج</button>
-            </div>
-        </div>
-
-        <!-- 3. فئة المكملات (كل المنتجات) -->
-        <h3 class="text-2xl font-bold mb-8 text-teal-800 border-r-4 border-orange-500 pr-3">المكملات الغذائية والفيتامينات</h3>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12">
-            <div class="product-card bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
-                <div class="img-container"><img src="https://parapharmaciebelaouane.com/wp-content/uploads/2025/03/moben-vitamine-czinc-1000mg-15mg-b-15-comprimes-effervescents.png.webp"></div>
-                <h4 class="font-bold text-center mt-3 flex-grow text-sm md:text-base">VITAMINE C MOBEN</h4>
-                <button onclick="openOrderModal('Vitamin C Moben')" class="w-full mt-3 bg-teal-600 text-white py-2 rounded-lg font-bold">طلب المنتج</button>
-            </div>
-            <div class="product-card bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
-                <div class="img-container"><img src="https://www.pharmaciemelouki.com/wp-content/uploads/2023/03/17563-63811986626980000029.png"></div>
-                <h4 class="font-bold text-center mt-3 flex-grow text-sm md:text-base">BIOMAX SELENIUM</h4>
-                <button onclick="openOrderModal('Biomax Selenium')" class="w-full mt-3 bg-teal-600 text-white py-2 rounded-lg font-bold">طلب المنتج</button>
-            </div>
-            <div class="product-card bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
-                <div class="img-container"><img src="https://pharmacie-denni.dz/wp-content/uploads/2025/05/psorilys-22.png"></div>
-                <h4 class="font-bold text-center mt-3 flex-grow text-sm md:text-base">DOUCE PLUS زيت كبد الحوت</h4>
-                <button onclick="openOrderModal('Cod Liver Oil')" class="w-full mt-3 bg-teal-600 text-white py-2 rounded-lg font-bold">طلب المنتج</button>
-            </div>
-            <div class="product-card bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
-                <div class="img-container"><img src="https://biomax.dz/api/file/3454"></div>
-                <h4 class="font-bold text-center mt-3 flex-grow text-sm md:text-base">BIOMAX OMEGA 3.6.9</h4>
-                <button onclick="openOrderModal('Biomax OMEGA')" class="w-full mt-3 bg-teal-600 text-white py-2 rounded-lg font-bold">طلب المنتج</button>
-            </div>
+                products.forEach(p => {
+                    document.write(`
+                        <div class="product-card">
+                            <div class="img-container"><img src="${p.img}" alt="${p.name}"></div>
+                            <div class="p-5 flex flex-col flex-grow text-center">
+                                <h4 class="font-bold text-lg mb-6 text-emerald-950">${p.name}</h4>
+                                <button onclick="openOrderModal('${p.name}')" class="mt-auto bg-emerald-700 text-white py-3 rounded-xl font-bold hover:bg-emerald-800 transition">اطلب الآن</button>
+                            </div>
+                        </div>
+                    `);
+                });
+            </script>
         </div>
     </main>
 
-    <!-- الخريطة -->
-    <section class="bg-white py-12 border-t border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-8 items-center">
+    <!-- الخريطة والمعلومات -->
+    <footer class="bg-emerald-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
             <div>
-                <h3 class="text-2xl font-bold text-teal-800">موقعنا في القرارة</h3>
-                <p class="text-gray-600 mt-2">حي أينورار، القرارة، ولاية غرداية</p>
-                <a href="https://www.google.com/maps/search/?api=1&query=QFQW+JFQ" target="_blank" class="inline-block mt-4 text-teal-600 font-bold border-b-2 border-teal-600">فتح الخريطة 🗺️</a>
+                <h3 class="text-2xl font-bold mb-4">موقعنا في حي أينورار</h3>
+                <p class="mb-6 opacity-80">بلدية القرارة، ولاية غرداية. نحن في خدمتكم دائماً.</p>
+                <a href="https://www.google.com/maps/place/Pharmacie+benLoulou/@32.7890979,4.4962443,16z" target="_blank" class="bg-white text-emerald-900 px-6 py-2 rounded-lg font-bold">فتح الخريطة</a>
             </div>
-            <div class="h-80 rounded-2xl overflow-hidden shadow-lg border border-gray-200">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1103.04!2d5.04415!3d32.79365!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzLCsDQ3JzM3LjEiTiA1wrAwMiczOS4wIkU!5e0!3m2!1sar!2sdz!4v1714485000000!5m2!1sar!2sdz" class="w-full h-full border-0" allowfullscreen="" loading="lazy"></iframe>
+            <div class="h-64 rounded-2xl overflow-hidden border-2 border-emerald-700">
+                <iframe src="https://maps.google.com/maps?q=Pharmacie%20benLoulou&t=k&z=17&hl=ar&output=embed" class="w-full h-full border-0" allowfullscreen loading="lazy"></iframe>
             </div>
         </div>
-    </section>
+    </footer>
 
-    <!-- Modal -->
+    <!-- نافذة الطلب -->
     <div id="orderModal" class="modal px-4">
-        <div class="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl">
-            <h3 class="text-xl font-bold text-teal-700 mb-4">تأكيد طلب المنتج</h3>
-            <form id="orderForm" class="space-y-4">
-                <input type="hidden" id="prodName">
-                <input type="text" id="custName" placeholder="الاسم الكامل" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-teal-500 outline-none" required>
-                <input type="tel" id="custPhone" placeholder="رقم الهاتف" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-teal-500 outline-none" required>
-                <button type="submit" class="w-full bg-orange-500 text-white py-3 rounded-lg font-bold hover:bg-orange-600 transition">إرسال الطلب</button>
-                <button type="button" onclick="closeModal()" class="w-full text-gray-500 mt-2">إلغاء</button>
-            </form>
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl relative border-t-8 border-emerald-600">
+            <button onclick="closeModal()" class="absolute top-4 left-4 text-gray-400 text-2xl">✕</button>
+            <div id="step-quantity" class="text-center">
+                <h3 class="text-2xl font-bold mb-8">كم تريد من المنتج؟</h3>
+                <div class="flex items-center justify-center gap-6 mb-8">
+                    <button onclick="changeQty(-1)" class="w-12 h-12 border-2 border-emerald-200 rounded-xl font-bold">-</button>
+                    <span id="qtyDisplay" class="text-4xl font-bold text-emerald-900">1</span>
+                    <button onclick="changeQty(1)" class="w-12 h-12 border-2 border-emerald-200 rounded-xl font-bold">+</button>
+                </div>
+                <button onclick="showInfoStep()" class="w-full bg-emerald-600 text-white py-4 rounded-xl font-bold">تأكيد الكمية</button>
+            </div>
+            <div id="step-info" class="hidden">
+                <form id="orderForm" class="space-y-4">
+                    <input type="hidden" id="prodName">
+                    <input type="hidden" id="finalQty" value="1">
+                    <input type="text" id="custName" placeholder="الاسم الكامل" class="w-full p-4 bg-emerald-50 rounded-xl outline-none" required>
+                    <input type="tel" id="custPhone" placeholder="رقم الهاتف" class="w-full p-4 bg-emerald-50 rounded-xl outline-none" required>
+                    <input type="text" id="custState" placeholder="الولاية" class="w-full p-4 bg-emerald-50 rounded-xl outline-none" required>
+                    <button type="submit" class="w-full bg-emerald-700 text-white py-4 rounded-xl font-bold">إرسال الطلب عبر n8n</button>
+                </form>
+            </div>
         </div>
     </div>
 
     <script>
-        const webUrl = "https://sammb2003.app.n8n.cloud/webhook-test/c4291c8f-0e25-4763-ad50-6e991cfa8890";
-        function openOrderModal(pName) { document.getElementById('prodName').value = pName; document.getElementById('orderModal').classList.add('active'); }
+        const webUrl = "https://sammb2003.app.n8n.cloud/webhook/c4291c8f-0e25-4763-ad50-6e991cfa8890";
+        let currentQty = 1;
+
+        function openOrderModal(pName) {
+            document.getElementById('prodName').value = pName;
+            currentQty = 1;
+            updateQtyDisplay();
+            showQtyStep();
+            document.getElementById('orderModal').classList.add('active');
+        }
+
+        function changeQty(val) { currentQty = Math.max(1, currentQty + val); updateQtyDisplay(); }
+        function updateQtyDisplay() { document.getElementById('qtyDisplay').innerText = currentQty; document.getElementById('finalQty').value = currentQty; }
+        function showInfoStep() { document.getElementById('step-quantity').classList.add('hidden'); document.getElementById('step-info').classList.remove('hidden'); }
+        function showQtyStep() { document.getElementById('step-quantity').classList.remove('hidden'); document.getElementById('step-info').classList.add('hidden'); }
         function closeModal() { document.getElementById('orderModal').classList.remove('active'); }
-        
+
         document.getElementById('orderForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const payload = {
                 product: document.getElementById('prodName').value,
+                quantity: document.getElementById('finalQty').value,
                 customer: document.getElementById('custName').value,
                 phone: document.getElementById('custPhone').value,
-                location: "حي أينورار - القرارة",
+                state: document.getElementById('custState').value,
+                shop: "صيدلية بن لولو",
                 timestamp: new Date().toLocaleString('ar-DZ')
             };
             try {
                 const res = await fetch(webUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-                if (res.ok) { alert('تم استلام طلبك بنجاح!'); closeModal(); }
-            } catch (err) { alert('حدث خطأ في الاتصال.'); }
+                if (res.ok) { alert('تم الطلب بنجاح!'); closeModal(); }
+            } catch (err) { alert('عذراً، فشل الإرسال.'); }
         });
     </script>
 </body>
