@@ -40,6 +40,7 @@
     <main class="max-w-7xl mx-auto px-4 py-12">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <script>
+                // قائمة المنتجات كاملة كما أرسلتها
                 const products = [
                     {name: 'CAN BEBE N1 P/9', img: 'https://shopicornermarket.com/wp-content/uploads/2025/05/1000010459.jpg'},
                     {name: 'CAN BEBE N2 P/9', img: 'https://shopicornermarket.com/wp-content/uploads/2025/05/1000010465.jpg'},
@@ -100,15 +101,15 @@
                     <input type="text" id="custName" placeholder="الاسم الكامل" class="w-full p-4 bg-emerald-50 rounded-xl outline-none" required>
                     <input type="tel" id="custPhone" placeholder="رقم الهاتف" class="w-full p-4 bg-emerald-50 rounded-xl outline-none" required>
                     <input type="text" id="custState" placeholder="الولاية" class="w-full p-4 bg-emerald-50 rounded-xl outline-none" required>
-                    <button type="submit" class="w-full bg-emerald-700 text-white py-4 rounded-xl font-bold">إرسال الطلب</button>
+                    <button type="submit" id="submitBtn" class="w-full bg-emerald-700 text-white py-4 rounded-xl font-bold">إرسال الطلب</button>
                 </form>
             </div>
         </div>
     </div>
 
     <script>
-        // تم تصحيح الرابط بحذف المسافة الزائدة
-        const webUrl = "https://gemini.google.com/app/013da2148c02e34e?hl=ar";
+        // الرابط الخاص بـ Google Apps Script الذي أنشأناه
+        const webUrl = "https://script.google.com/macros/s/AKfycbxzot2ne0cGAXaPLrnsdJFeh8PywgpeqvqN6kpEUEL3AzXFXs8XBcnnCEuE-CGTw0Yw/exec";
         
         let currentQty = 1;
 
@@ -147,32 +148,37 @@
         document.getElementById('orderForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
+            const btn = document.getElementById('submitBtn');
+            btn.innerText = "جاري الإرسال...";
+            btn.disabled = true;
+
             const payload = {
                 product: document.getElementById('prodName').value,
-                quantity: document.getElementById('finalQty').value, // إضافة الكمية المطلوبة
+                quantity: document.getElementById('finalQty').value,
                 customer: document.getElementById('custName').value,
                 phone: document.getElementById('custPhone').value,
-                location: document.getElementById('custState').value,
-                shop: "صيدلية بن لولو",
-                timestamp: new Date().toLocaleString('ar-DZ')
+                location: document.getElementById('custState').value
             };
 
             try {
-                const res = await fetch(webUrl, { 
+                // إرسال البيانات مباشرة إلى جدول Google Sheets
+                await fetch(webUrl, { 
                     method: 'POST', 
+                    mode: 'no-cors',
+                    cache: 'no-cache',
                     headers: { 'Content-Type': 'application/json' }, 
                     body: JSON.stringify(payload) 
                 });
 
-                if (res.ok) { 
-                    alert('تم الطلب بنجاح! شكراً لثقتكم.'); 
-                    closeModal(); 
-                    document.getElementById('orderForm').reset();
-                } else {
-                    alert('فشل في الوصول للسيرفر، يرجى المحاولة لاحقاً.');
-                }
+                alert('تم إرسال طلبك بنجاح! شكراً لثقتكم بصيدلية بن لولو.'); 
+                closeModal(); 
+                document.getElementById('orderForm').reset();
+                
             } catch (err) { 
-                alert('عذراً، فشل الإرسال. تأكد من تفعيل "Listen for test event" في n8n.'); 
+                alert('حدث خطأ أثناء الإرسال، يرجى المحاولة لاحقاً.'); 
+            } finally {
+                btn.innerText = "إرسال الطلب";
+                btn.disabled = false;
             }
         });
     </script>
