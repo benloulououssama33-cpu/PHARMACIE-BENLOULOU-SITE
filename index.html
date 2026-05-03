@@ -1,1713 +1,631 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صيدلية بن لولو</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --green-50: #f0fdf4;
-            --green-100: #dcfce7;
-            --green-200: #bbf7d0;
-            --green-300: #86efac;
-            --green-400: #4ade80;
-            --green-500: #22c55e;
-            --green-600: #16a34a;
-            --green-700: #15803d;
-            --green-800: #166534;
-            --green-900: #14532d;
-            --green-950: #052e16;
-            --gold: #d4a843;
-            --gold-light: #f5e6c0;
-            --white: #ffffff;
-            --gray-50: #f9fafb;
-            --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb;
-            --gray-400: #9ca3af;
-            --gray-600: #4b5563;
-            --gray-800: #1f2937;
-            --sidebar-w: 340px;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Cairo', sans-serif;
-            background: #f0f9f2;
-            color: var(--gray-800);
-            overflow-x: hidden;
-        }
-
-        /* ===== HEADER ===== */
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(255,255,255,0.96);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border-bottom: 1px solid var(--green-100);
-            padding: 0 2rem;
-            box-shadow: 0 2px 20px rgba(20,83,45,0.08);
-        }
-
-        .header-inner {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 76px;
-            gap: 16px;
-        }
-
-        .logo-wrap {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-shrink: 0;
-        }
-
-        .logo-wrap img { height: 46px; border-radius: 10px; }
-
-        .logo-name {
-            font-size: 1.25rem;
-            font-weight: 900;
-            color: var(--green-900);
-            letter-spacing: -0.02em;
-        }
-
-        .logo-sub {
-            font-size: 0.72rem;
-            color: var(--green-600);
-            font-weight: 500;
-        }
-
-        /* ===== SEARCH BAR ===== */
-        .search-wrap {
-            flex: 1;
-            max-width: 480px;
-            position: relative;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 12px 20px 12px 50px;
-            background: var(--green-50);
-            border: 2px solid var(--green-200);
-            border-radius: 100px;
-            font-family: 'Cairo', sans-serif;
-            font-size: 0.92rem;
-            color: var(--gray-800);
-            outline: none;
-            transition: all 0.25s ease;
-            direction: rtl;
-        }
-
-        .search-input:focus {
-            border-color: var(--green-500);
-            background: white;
-            box-shadow: 0 0 0 4px rgba(34,197,94,0.12);
-        }
-
-        .search-input::placeholder { color: var(--gray-400); }
-
-        .search-icon {
-            position: absolute;
-            left: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--green-500);
-            font-size: 1.1rem;
-            pointer-events: none;
-        }
-
-        .search-results-count {
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 0.72rem;
-            color: var(--green-600);
-            font-weight: 700;
-            display: none;
-        }
-
-        .header-cta {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-shrink: 0;
-        }
-
-        .pill-badge {
-            background: var(--green-50);
-            color: var(--green-700);
-            border: 1px solid var(--green-200);
-            padding: 6px 14px;
-            border-radius: 100px;
-            font-size: 0.78rem;
-            font-weight: 600;
-        }
-
-        .call-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--green-800);
-            color: white;
-            padding: 10px 22px;
-            border-radius: 100px;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 700;
-            transition: all 0.25s ease;
-            box-shadow: 0 4px 14px rgba(20, 83, 45, 0.3);
-        }
-
-        .call-btn:hover {
-            background: var(--green-900);
-            box-shadow: 0 6px 22px rgba(20, 83, 45, 0.4);
-            transform: translateY(-1px);
-        }
-
-        .call-dot {
-            width: 8px; height: 8px;
-            background: var(--green-400);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(1.4); }
-        }
-
-        /* ===== HERO ===== */
-        .hero {
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(135deg, var(--green-950) 0%, var(--green-800) 55%, #1e7a3e 100%);
-            padding: 75px 2rem 95px;
-            text-align: center;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -60%;
-            right: -10%;
-            width: 55%;
-            height: 220%;
-            background: radial-gradient(ellipse, rgba(74,222,128,0.08) 0%, transparent 65%);
-            pointer-events: none;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 85px;
-            background: #f0f9f2;
-            clip-path: ellipse(56% 100% at 50% 100%);
-        }
-
-        .hero-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: rgba(255,255,255,0.9);
-            padding: 7px 20px;
-            border-radius: 100px;
-            font-size: 0.82rem;
-            font-weight: 600;
-            margin-bottom: 28px;
-            backdrop-filter: blur(8px);
-        }
-
-        .hero h1 {
-            font-size: clamp(2.2rem, 5vw, 3.8rem);
-            font-weight: 900;
-            color: white;
-            line-height: 1.15;
-            letter-spacing: -0.03em;
-            margin-bottom: 16px;
-        }
-
-        .hero h1 span { color: var(--green-400); }
-
-        .hero p {
-            color: rgba(255,255,255,0.72);
-            font-size: 1.1rem;
-            max-width: 500px;
-            margin: 0 auto 44px;
-            line-height: 1.75;
-        }
-
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 44px;
-            flex-wrap: wrap;
-        }
-
-        .hero-stat .num {
-            font-size: 2rem;
-            font-weight: 900;
-            color: white;
-            line-height: 1;
-        }
-
-        .hero-stat .lbl {
-            font-size: 0.75rem;
-            color: rgba(255,255,255,0.5);
-            margin-top: 5px;
-        }
-
-        .hero-divider {
-            width: 1px;
-            height: 44px;
-            background: rgba(255,255,255,0.15);
-            align-self: center;
-        }
-
-        /* ===== LAYOUT ===== */
-        .page-layout {
-            display: flex;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 48px 2rem;
-            gap: 32px;
-            align-items: flex-start;
-        }
-
-        /* ===== MAIN CONTENT ===== */
-        .main-content {
-            flex: 1;
-            min-width: 0;
-        }
-
-        /* ===== NO RESULTS ===== */
-        .no-results {
-            display: none;
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--gray-400);
-        }
-
-        .no-results-icon { font-size: 3rem; margin-bottom: 12px; }
-        .no-results h3 { font-size: 1.1rem; color: var(--gray-600); margin-bottom: 8px; }
-
-        /* ===== SECTION HEADER ===== */
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 28px;
-        }
-
-        .section-icon {
-            width: 50px; height: 50px;
-            background: linear-gradient(135deg, var(--green-100), var(--green-200));
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            flex-shrink: 0;
-            box-shadow: 0 4px 12px rgba(20,83,45,0.1);
-        }
-
-        .section-label {
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: var(--green-500);
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            margin-bottom: 4px;
-        }
-
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: var(--green-950);
-            letter-spacing: -0.02em;
-        }
-
-        .section-block {
-            margin-bottom: 60px;
-        }
-
-        /* ===== PRODUCT GRID ===== */
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 22px;
-        }
-
-        /* ===== PRODUCT CARD ===== */
-        .product-card {
-            background: white;
-            border-radius: 24px;
-            overflow: hidden;
-            border: 1.5px solid var(--green-100);
-            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-            position: relative;
-            box-shadow: 0 2px 12px rgba(20,83,45,0.05);
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--green-300);
-            box-shadow: 0 24px 48px rgba(20, 83, 45, 0.15), 0 6px 16px rgba(20, 83, 45, 0.08);
-        }
-
-        .card-img-wrap {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(145deg, #f0fdf4, #dcfce7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card-img-wrap::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 70% 30%, rgba(74,222,128,0.1), transparent 60%);
-        }
-
-        .card-img-wrap::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 8%; right: 8%;
-            height: 24px;
-            background: radial-gradient(ellipse, rgba(20,83,45,0.08) 0%, transparent 70%);
-        }
-
-        .card-img-wrap img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            transition: transform 0.4s ease;
-            position: relative;
-            z-index: 1;
-        }
-
-        .product-card:hover .card-img-wrap img {
-            transform: scale(1.1) translateY(-4px);
-        }
-
-        .card-body {
-            padding: 18px 20px 20px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card-name {
-            font-size: 0.95rem;
-            font-weight: 800;
-            color: var(--green-950);
-            line-height: 1.4;
-            margin-bottom: 8px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .card-price {
-            font-size: 0.82rem;
-            color: var(--green-600);
-            font-weight: 700;
-            margin-bottom: 16px;
-            flex: 1;
-        }
-
-        .order-btn {
-            width: 100%;
-            padding: 13px;
-            background: linear-gradient(135deg, var(--green-800), var(--green-600));
-            color: white;
-            border: none;
-            border-radius: 14px;
-            font-family: 'Cairo', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 800;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            box-shadow: 0 4px 14px rgba(22,163,74,0.25);
-        }
-
-        .order-btn:hover {
-            background: linear-gradient(135deg, var(--green-900), var(--green-700));
-            transform: scale(0.98);
-            box-shadow: 0 6px 20px rgba(22,163,74,0.35);
-        }
-
-        /* ===== SIDEBAR ===== */
-        .sidebar {
-            width: var(--sidebar-w);
-            flex-shrink: 0;
-            position: sticky;
-            top: 92px;
-            max-height: calc(100vh - 110px);
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
-
-        .sidebar::-webkit-scrollbar { width: 4px; }
-        .sidebar::-webkit-scrollbar-track { background: transparent; }
-        .sidebar::-webkit-scrollbar-thumb { background: var(--green-200); border-radius: 2px; }
-
-        .sidebar-header {
-            background: linear-gradient(135deg, var(--green-900), var(--green-700));
-            border-radius: 20px 20px 0 0;
-            padding: 22px 22px 18px;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-
-        .sidebar-header h2 {
-            font-size: 1.05rem;
-            font-weight: 900;
-            color: white;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .sidebar-header p {
-            font-size: 0.75rem;
-            color: rgba(255,255,255,0.6);
-        }
-
-        .sidebar-body {
-            background: white;
-            border: 1.5px solid var(--green-100);
-            border-top: none;
-            border-radius: 0 0 20px 20px;
-            overflow: hidden;
-        }
-
-        /* ===== HEALTH CATEGORIES ===== */
-        .health-category {
-            border-bottom: 1px solid var(--green-50);
-            overflow: hidden;
-        }
-
-        .health-category:last-child { border-bottom: none; }
-
-        .cat-toggle {
-            width: 100%;
-            padding: 0;
-            background: none;
-            border: none;
-            cursor: pointer;
-            text-align: right;
-            transition: background 0.2s;
-        }
-
-        .cat-toggle:hover .cat-header { background: var(--green-50); }
-
-        .cat-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 14px 18px;
-            transition: background 0.2s;
-        }
-
-        .cat-img {
-            width: 52px;
-            height: 52px;
-            border-radius: 12px;
-            object-fit: cover;
-            flex-shrink: 0;
-            border: 2px solid var(--green-100);
-        }
-
-        .cat-info {
-            flex: 1;
-            text-align: right;
-        }
-
-        .cat-name {
-            font-size: 0.88rem;
-            font-weight: 800;
-            color: var(--green-900);
-            margin-bottom: 2px;
-            font-family: 'Cairo', sans-serif;
-        }
-
-        .cat-subtitle {
-            font-size: 0.72rem;
-            color: var(--gray-400);
-        }
-
-        .cat-arrow {
-            color: var(--green-500);
-            font-size: 0.8rem;
-            transition: transform 0.3s ease;
-            flex-shrink: 0;
-        }
-
-        .cat-toggle.active .cat-arrow { transform: rotate(180deg); }
-
-        .cat-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease;
-        }
-
-        .cat-content.open { max-height: 600px; }
-
-        .tip-list {
-            padding: 8px 18px 16px;
-            background: var(--green-50);
-        }
-
-        .tip-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            padding: 10px 0;
-            border-bottom: 1px dashed var(--green-100);
-            font-size: 0.82rem;
-            line-height: 1.6;
-            color: var(--gray-600);
-        }
-
-        .tip-item:last-child { border-bottom: none; }
-
-        .tip-dot {
-            width: 8px; height: 8px;
-            background: var(--green-500);
-            border-radius: 50%;
-            flex-shrink: 0;
-            margin-top: 6px;
-        }
-
-        /* ===== MODAL ===== */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(5, 46, 22, 0.75);
-            z-index: 9999;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            backdrop-filter: blur(8px);
-        }
-
-        .modal-overlay.open { display: flex; }
-
-        .modal-box {
-            background: white;
-            border-radius: 28px;
-            width: 100%;
-            max-width: 440px;
-            overflow: hidden;
-            animation: slideUp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 40px 80px rgba(5, 46, 22, 0.35);
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(40px) scale(0.93); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        .modal-head {
-            background: linear-gradient(135deg, var(--green-950), var(--green-700));
-            padding: 26px 28px;
-            position: relative;
-        }
-
-        .modal-head-tag {
-            font-size: 0.7rem;
-            color: var(--green-300);
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            margin-bottom: 6px;
-        }
-
-        .modal-product-name {
-            font-size: 1.15rem;
-            font-weight: 900;
-            color: white;
-            line-height: 1.3;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 18px;
-            left: 18px;
-            width: 34px; height: 34px;
-            background: rgba(255,255,255,0.15);
-            border: none;
-            border-radius: 50%;
-            color: white;
-            font-size: 1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.2s;
-        }
-
-        .modal-close:hover { background: rgba(255,255,255,0.28); }
-
-        .modal-body { padding: 28px; }
-
-        .qty-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: var(--green-50);
-            border: 1.5px solid var(--green-100);
-            padding: 14px 18px;
-            border-radius: 14px;
-            margin-bottom: 20px;
-        }
-
-        .qty-label { font-size: 0.9rem; color: var(--green-800); font-weight: 700; }
-
-        .qty-controls {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-        }
-
-        .qty-btn {
-            width: 38px; height: 38px;
-            background: white;
-            border: 1.5px solid var(--green-200);
-            border-radius: 10px;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--green-700);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.15s;
-        }
-
-        .qty-btn:hover { background: var(--green-700); color: white; border-color: var(--green-700); }
-
-        .qty-num {
-            font-size: 1.4rem;
-            font-weight: 900;
-            color: var(--green-950);
-            min-width: 28px;
-            text-align: center;
-        }
-
-        .form-field { margin-bottom: 14px; }
-
-        .form-field input {
-            width: 100%;
-            padding: 14px 18px;
-            background: var(--gray-50);
-            border: 2px solid var(--gray-200);
-            border-radius: 12px;
-            font-family: 'Cairo', sans-serif;
-            font-size: 0.92rem;
-            color: var(--gray-800);
-            outline: none;
-            transition: border-color 0.2s;
-            direction: rtl;
-        }
-
-        .form-field input:focus { border-color: var(--green-500); background: white; }
-        .form-field input::placeholder { color: var(--gray-400); }
-
-        .submit-btn {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, var(--green-800), var(--green-600));
-            color: white;
-            border: none;
-            border-radius: 14px;
-            font-family: 'Cairo', sans-serif;
-            font-size: 1rem;
-            font-weight: 900;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            box-shadow: 0 6px 22px rgba(22, 163, 74, 0.35);
-            margin-top: 6px;
-        }
-
-        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(22, 163, 74, 0.45); }
-        .submit-btn:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
-
-        /* ===== AI CHATBOT ===== */
-        .chat-fab {
-            position: fixed;
-            bottom: 28px;
-            left: 28px;
-            width: 64px;
-            height: 64px;
-            background: linear-gradient(135deg, var(--green-800), var(--green-600));
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            box-shadow: 0 8px 28px rgba(20,83,45,0.4);
-            z-index: 8000;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            animation: fabPulse 3s ease-in-out infinite;
-        }
-
-        @keyframes fabPulse {
-            0%, 100% { box-shadow: 0 8px 28px rgba(20,83,45,0.4), 0 0 0 0 rgba(34,197,94,0); }
-            50% { box-shadow: 0 8px 28px rgba(20,83,45,0.4), 0 0 0 12px rgba(34,197,94,0.15); }
-        }
-
-        .chat-fab:hover { transform: scale(1.1) rotate(-5deg); }
-
-        .chat-fab-badge {
-            position: absolute;
-            top: -4px;
-            right: -4px;
-            width: 20px;
-            height: 20px;
-            background: #ef4444;
-            border-radius: 50%;
-            font-size: 0.62rem;
-            font-weight: 800;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid white;
-            animation: badgeBounce 1s ease infinite alternate;
-        }
-
-        @keyframes badgeBounce {
-            from { transform: scale(1); }
-            to { transform: scale(1.2); }
-        }
-
-        .chat-window {
-            position: fixed;
-            bottom: 106px;
-            left: 24px;
-            width: 390px;
-            height: 580px;
-            background: white;
-            border-radius: 28px;
-            box-shadow: 0 32px 80px rgba(20,83,45,0.25), 0 8px 24px rgba(0,0,0,0.1);
-            z-index: 7999;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            border: 1.5px solid var(--green-100);
-            transform: scale(0.85) translateY(30px);
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-            transform-origin: bottom left;
-        }
-
-        .chat-window.open {
-            transform: scale(1) translateY(0);
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .chat-header {
-            background: linear-gradient(135deg, var(--green-950), var(--green-800));
-            padding: 18px 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-shrink: 0;
-        }
-
-        .ai-avatar {
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(135deg, var(--green-400), var(--green-600));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            flex-shrink: 0;
-            position: relative;
-        }
-
-        .ai-status {
-            position: absolute;
-            bottom: 1px;
-            right: 1px;
-            width: 12px;
-            height: 12px;
-            background: #22c55e;
-            border-radius: 50%;
-            border: 2px solid white;
-            animation: pulse 2s infinite;
-        }
-
-        .chat-header-info { flex: 1; }
-        .chat-header-info h3 { font-size: 0.95rem; font-weight: 900; color: white; margin-bottom: 2px; }
-        .chat-header-info p { font-size: 0.72rem; color: rgba(255,255,255,0.6); }
-
-        .chat-close {
-            width: 32px; height: 32px;
-            background: rgba(255,255,255,0.12);
-            border: none;
-            border-radius: 50%;
-            color: white;
-            font-size: 1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.2s;
-        }
-
-        .chat-close:hover { background: rgba(255,255,255,0.22); }
-
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 18px 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            background: #f8fdf9;
-        }
-
-        .chat-messages::-webkit-scrollbar { width: 4px; }
-        .chat-messages::-webkit-scrollbar-thumb { background: var(--green-200); border-radius: 2px; }
-
-        .msg {
-            display: flex;
-            gap: 10px;
-            max-width: 88%;
-        }
-
-        .msg.user { align-self: flex-end; flex-direction: row-reverse; }
-        .msg.bot { align-self: flex-start; }
-
-        .msg-avatar {
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-            flex-shrink: 0;
-        }
-
-        .msg.bot .msg-avatar { background: linear-gradient(135deg, var(--green-500), var(--green-700)); color: white; }
-        .msg.user .msg-avatar { background: var(--green-100); }
-
-        .msg-bubble {
-            padding: 11px 15px;
-            border-radius: 18px;
-            font-size: 0.85rem;
-            line-height: 1.65;
-            direction: rtl;
-        }
-
-        .msg.bot .msg-bubble {
-            background: white;
-            color: var(--gray-800);
-            border: 1px solid var(--green-100);
-            border-radius: 4px 18px 18px 18px;
-            box-shadow: 0 2px 8px rgba(20,83,45,0.06);
-        }
-
-        .msg.user .msg-bubble {
-            background: linear-gradient(135deg, var(--green-700), var(--green-600));
-            color: white;
-            border-radius: 18px 4px 18px 18px;
-        }
-
-        .msg-time {
-            font-size: 0.67rem;
-            color: var(--gray-400);
-            margin-top: 4px;
-            text-align: center;
-            padding: 0 4px;
-        }
-
-        .typing-indicator {
-            display: none;
-            align-self: flex-start;
-            background: white;
-            border: 1px solid var(--green-100);
-            padding: 14px 18px;
-            border-radius: 4px 18px 18px 18px;
-            gap: 6px;
-            align-items: center;
-            box-shadow: 0 2px 8px rgba(20,83,45,0.06);
-        }
-
-        .typing-indicator.show { display: flex; }
-
-        .typing-dot {
-            width: 8px; height: 8px;
-            background: var(--green-400);
-            border-radius: 50%;
-            animation: typing 1.4s infinite;
-        }
-
-        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
-
-        @keyframes typing {
-            0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
-            30% { transform: translateY(-8px); opacity: 1; }
-        }
-
-        .quick-replies {
-            padding: 0 16px 12px;
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            background: #f8fdf9;
-        }
-
-        .quick-reply {
-            padding: 7px 13px;
-            background: white;
-            border: 1.5px solid var(--green-200);
-            border-radius: 100px;
-            font-size: 0.76rem;
-            color: var(--green-700);
-            cursor: pointer;
-            font-family: 'Cairo', sans-serif;
-            font-weight: 600;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-
-        .quick-reply:hover { background: var(--green-700); color: white; border-color: var(--green-700); }
-
-        .chat-input-area {
-            padding: 14px 16px;
-            background: white;
-            border-top: 1px solid var(--green-100);
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            flex-shrink: 0;
-        }
-
-        .chat-input {
-            flex: 1;
-            padding: 11px 16px;
-            background: var(--green-50);
-            border: 1.5px solid var(--green-200);
-            border-radius: 100px;
-            font-family: 'Cairo', sans-serif;
-            font-size: 0.875rem;
-            outline: none;
-            direction: rtl;
-            transition: all 0.2s;
-        }
-
-        .chat-input:focus { border-color: var(--green-500); background: white; }
-
-        .send-btn {
-            width: 42px; height: 42px;
-            background: linear-gradient(135deg, var(--green-800), var(--green-600));
-            border: none;
-            border-radius: 50%;
-            color: white;
-            font-size: 1.1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            flex-shrink: 0;
-        }
-
-        .send-btn:hover { transform: scale(1.1); background: var(--green-900); }
-
-        /* ===== FOOTER ===== */
-        .footer-section {
-            background: var(--green-950);
-            color: white;
-            padding: 70px 2rem 50px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .footer-section::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--green-600), var(--green-400), var(--green-600));
-        }
-
-        .footer-inner {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-
-        .footer-info h3 { font-size: 1.7rem; font-weight: 900; margin-bottom: 12px; letter-spacing: -0.02em; }
-        .footer-info p { opacity: 0.6; line-height: 1.7; font-size: 0.95rem; margin-bottom: 28px; }
-
-        .footer-contact { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
-
-        .contact-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        .contact-icon {
-            width: 36px; height: 36px;
-            background: rgba(255,255,255,0.08);
-            border-radius: 9px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-            flex-shrink: 0;
-        }
-
-        .map-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: white;
-            color: var(--green-900);
-            padding: 12px 26px;
-            border-radius: 100px;
-            text-decoration: none;
-            font-weight: 900;
-            font-size: 0.9rem;
-            transition: all 0.2s;
-        }
-
-        .map-btn:hover { background: var(--green-100); transform: translateY(-2px); }
-
-        .map-frame {
-            height: 290px;
-            border-radius: 22px;
-            overflow: hidden;
-            border: 2px solid rgba(255,255,255,0.1);
-        }
-
-        .map-frame iframe { width: 100%; height: 100%; border: none; }
-
-        .footer-bottom {
-            max-width: 1400px;
-            margin: 40px auto 0;
-            padding-top: 24px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            text-align: center;
-            font-size: 0.8rem;
-            opacity: 0.4;
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 900px) {
-            .sidebar { display: none; }
-            .page-layout { padding: 32px 1rem; }
-        }
-
-        @media (max-width: 640px) {
-            .header-inner { gap: 8px; padding: 0; }
-            .pill-badge { display: none; }
-            .search-wrap { max-width: none; }
-            .footer-inner { grid-template-columns: 1fr; }
-            .hero-divider { display: none; }
-            .chat-window { width: calc(100vw - 32px); left: 16px; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>صيدلية بن لولو</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g50:#f0fdf4;--g100:#dcfce7;--g200:#bbf7d0;--g300:#86efac;
+  --g400:#4ade80;--g500:#22c55e;--g600:#16a34a;--g700:#15803d;
+  --g800:#166534;--g900:#14532d;--g950:#052e16;
+  --gr50:#f9fafb;--gr100:#f3f4f6;--gr200:#e5e7eb;
+  --gr400:#9ca3af;--gr600:#4b5563;--gr800:#1f2937;
+  --sh:0 8px 32px rgba(5,46,22,.1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Cairo',sans-serif;color:var(--gr800);overflow-x:hidden;background:#f0fdf6}
+
+/* ══ ANIMATED BACKGROUND ══ */
+.bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background:linear-gradient(160deg,#f0fdf6 0%,#dcfce7 40%,#f0fdf4 70%,#ecfdf5 100%)}
+.bg-canvas::before{content:'';position:fixed;top:-20%;right:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(34,197,94,.07) 0%,transparent 70%);border-radius:50%;animation:drift1 18s ease-in-out infinite}
+.bg-canvas::after{content:'';position:fixed;bottom:-20%;left:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(20,83,45,.06) 0%,transparent 70%);border-radius:50%;animation:drift2 22s ease-in-out infinite}
+.bg-orb{position:fixed;top:40%;left:50%;width:800px;height:800px;background:radial-gradient(circle,rgba(74,222,128,.04) 0%,transparent 65%);border-radius:50%;transform:translate(-50%,-50%);animation:drift3 28s ease-in-out infinite;pointer-events:none}
+/* floating DNA / cross shapes */
+.bg-shapes{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.shape{position:absolute;opacity:.04;color:#166534;font-size:2rem;animation:floatShape linear infinite}
+@keyframes floatShape{0%{transform:translateY(110vh) rotate(0deg);opacity:0}10%{opacity:.05}90%{opacity:.05}100%{transform:translateY(-10vh) rotate(360deg);opacity:0}}
+@keyframes drift1{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-60px,40px) scale(1.1)}66%{transform:translate(40px,-30px) scale(.95)}}
+@keyframes drift2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(50px,-60px) scale(1.15)}}
+@keyframes drift3{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.2)}}
+
+/* ══ HEADER ══ */
+header{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(187,247,208,.6);box-shadow:0 2px 20px rgba(5,46,22,.06)}
+.hdr{max-width:1420px;margin:0 auto;padding:0 1.5rem;height:72px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.logo{display:flex;align-items:center;gap:11px;flex-shrink:0;text-decoration:none}
+.logo img{height:44px;filter:drop-shadow(0 2px 6px rgba(20,83,45,.15))}
+.logo-text .nm{font-size:1.1rem;font-weight:900;color:var(--g900);letter-spacing:-.02em}
+.logo-text .sb{font-size:.62rem;color:var(--g600);font-weight:500}
+.srch{flex:1;max-width:480px;position:relative}
+.srch input{width:100%;padding:10px 42px 10px 16px;border:1.5px solid var(--g200);border-radius:100px;font-family:'Cairo',sans-serif;font-size:.86rem;background:rgba(240,253,244,.8);outline:none;transition:.2s;color:var(--gr800)}
+.srch input:focus{border-color:var(--g500);background:#fff;box-shadow:0 0 0 3px rgba(34,197,94,.1)}
+.srch-ico{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--g500);font-size:.95rem;pointer-events:none}
+.srch-drop{position:absolute;top:calc(100% + 6px);left:0;right:0;background:#fff;border:1px solid var(--g200);border-radius:18px;box-shadow:0 12px 40px rgba(5,46,22,.12);z-index:300;overflow:hidden;display:none}
+.srch-drop.show{display:block}
+.sd-item{padding:10px 16px;cursor:pointer;font-size:.83rem;display:flex;align-items:center;gap:10px;transition:background .12s}
+.sd-item:hover{background:var(--g50)}
+.sd-item img{width:38px;height:38px;object-fit:contain;border-radius:9px;background:var(--g50);border:1px solid var(--g100)}
+.sd-empty{padding:14px 16px;color:var(--gr400);font-size:.83rem;text-align:center}
+.hdr-r{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.pill{background:var(--g50);color:var(--g700);border:1px solid var(--g200);padding:6px 13px;border-radius:100px;font-size:.7rem;font-weight:700}
+.cbtn{display:flex;align-items:center;gap:7px;background:var(--g800);color:#fff;padding:10px 20px;border-radius:100px;text-decoration:none;font-size:.82rem;font-weight:700;transition:.2s;box-shadow:0 4px 16px rgba(20,83,45,.28)}
+.cbtn:hover{background:var(--g950);transform:translateY(-1px);box-shadow:0 6px 22px rgba(20,83,45,.38)}
+.live-dot{width:7px;height:7px;background:var(--g400);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.5)}}
+
+/* ══ HERO ══ */
+.hero{position:relative;overflow:hidden;background:linear-gradient(140deg,var(--g950) 0%,#0d3d22 40%,var(--g800) 75%,#1a8f52 100%);padding:80px 2rem 110px;text-align:center}
+.hero-glow{position:absolute;top:30%;left:50%;transform:translate(-50%,-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(74,222,128,.12) 0%,transparent 70%);pointer-events:none}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:80px;background:#f0fdf6;clip-path:ellipse(58% 100% at 50% 100%)}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.92);padding:7px 20px;border-radius:100px;font-size:.76rem;font-weight:700;margin-bottom:26px;backdrop-filter:blur(8px)}
+.hero h1{font-size:clamp(2rem,5vw,3.6rem);font-weight:900;color:#fff;letter-spacing:-.04em;margin-bottom:16px;line-height:1.1}
+.hero h1 em{color:var(--g400);font-style:normal;position:relative}
+.hero h1 em::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;background:var(--g400);border-radius:2px;opacity:.5}
+.hero p{color:rgba(255,255,255,.65);font-size:1.05rem;max-width:500px;margin:0 auto 44px;line-height:1.75}
+.stats{display:flex;justify-content:center;gap:0;flex-wrap:wrap}
+.stat{text-align:center;padding:0 32px}
+.stat+.stat{border-right:1px solid rgba(255,255,255,.12)}
+.stat .n{font-size:1.9rem;font-weight:900;color:#fff;line-height:1}
+.stat .l{font-size:.7rem;color:rgba(255,255,255,.45);margin-top:4px;letter-spacing:.04em}
+
+/* ══ LAYOUT ══ */
+.wrap{max-width:1420px;margin:0 auto;padding:52px 1.5rem}
+.cols{display:flex;gap:28px;align-items:flex-start}
+.main-c{flex:1;min-width:0}
+.side-c{width:348px;flex-shrink:0;position:sticky;top:84px}
+
+/* ══ SECTION ══ */
+.sec{margin-bottom:60px}
+.sec-h{display:flex;align-items:center;gap:14px;margin-bottom:30px;padding-bottom:16px;border-bottom:1px solid var(--g100)}
+.sec-ico{width:44px;height:44px;background:linear-gradient(135deg,var(--g100),var(--g200));border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:1.15rem;flex-shrink:0;box-shadow:0 2px 8px rgba(20,83,45,.1)}
+.sec-meta .lbl{font-size:.62rem;font-weight:800;color:var(--g500);letter-spacing:.12em;margin-bottom:3px}
+.sec-meta .ttl{font-size:1.3rem;font-weight:900;color:var(--g950);letter-spacing:-.025em}
+
+/* ══ PRODUCT GRID ══ */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px}
+.pcard{background:#fff;border-radius:22px;overflow:hidden;border:1.5px solid var(--g100);transition:all .32s cubic-bezier(.34,1.56,.64,1);display:flex;flex-direction:column;cursor:pointer;box-shadow:0 2px 12px rgba(20,83,45,.05)}
+.pcard:hover{transform:translateY(-10px) scale(1.012);border-color:var(--g300);box-shadow:0 28px 56px rgba(20,83,45,.14),0 6px 16px rgba(20,83,45,.07)}
+.pimg{width:100%;height:220px;background:linear-gradient(145deg,#f6fef9,#ecfdf5);display:flex;align-items:center;justify-content:center;padding:26px;overflow:hidden;position:relative}
+.pimg::after{content:'';position:absolute;bottom:0;left:15%;right:15%;height:18px;background:radial-gradient(ellipse,rgba(20,83,45,.07) 0%,transparent 70%)}
+.pimg img{max-width:100%;max-height:100%;object-fit:contain;transition:transform .45s cubic-bezier(.34,1.56,.64,1)}
+.pcard:hover .pimg img{transform:scale(1.12) rotate(-1deg)}
+.pbody{padding:18px 20px 20px;flex:1;display:flex;flex-direction:column}
+.pname{font-size:.9rem;font-weight:800;color:var(--g950);line-height:1.4;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pprice{font-size:.82rem;color:var(--g600);font-weight:700;margin-bottom:14px;flex:1;display:flex;align-items:center;gap:6px}
+.pprice::before{content:'💰';font-size:.75rem}
+.obtn{width:100%;padding:12px;background:linear-gradient(135deg,var(--g800),var(--g700));color:#fff;border:none;border-radius:13px;font-family:'Cairo',sans-serif;font-size:.86rem;font-weight:800;cursor:pointer;transition:.22s;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 3px 12px rgba(20,83,45,.2)}
+.obtn:hover{background:linear-gradient(135deg,var(--g950),var(--g800));transform:scale(.97);box-shadow:0 5px 18px rgba(20,83,45,.3)}
+
+/* ══ TIPS PANEL ══ */
+.tpanel{background:#fff;border-radius:22px;border:1.5px solid var(--g100);overflow:hidden;box-shadow:var(--sh)}
+.tp-head{background:linear-gradient(140deg,var(--g950),var(--g700));padding:20px 20px 18px;position:relative;overflow:hidden}
+.tp-head::before{content:'🏥';position:absolute;left:-8px;bottom:-12px;font-size:5rem;opacity:.06}
+.tp-head h3{color:#fff;font-size:1rem;font-weight:900;margin-bottom:3px}
+.tp-head p{color:rgba(255,255,255,.55);font-size:.68rem}
+.tp-srch{padding:12px 14px;border-bottom:1px solid var(--g100)}
+.tp-srch input{width:100%;padding:9px 14px;border:1.5px solid var(--g200);border-radius:100px;font-family:'Cairo',sans-serif;font-size:.78rem;background:var(--g50);outline:none;transition:.2s}
+.tp-srch input:focus{border-color:var(--g400);background:#fff}
+.tcats{max-height:calc(100vh - 280px);overflow-y:auto;padding:10px}
+.tcats::-webkit-scrollbar{width:3px}
+.tcats::-webkit-scrollbar-thumb{background:var(--g200);border-radius:3px}
+.tcat{border-radius:14px;overflow:hidden;margin-bottom:7px;border:1.5px solid var(--g100);transition:border-color .2s}
+.tcat.open{border-color:var(--g300)}
+.tcat-h{display:flex;align-items:center;gap:10px;padding:10px 12px;cursor:pointer;background:#fff;transition:background .15s;user-select:none}
+.tcat-h:hover{background:var(--g50)}
+.tcat-img{width:44px;height:44px;border-radius:10px;object-fit:cover;flex-shrink:0;border:1px solid var(--g100)}
+.tcat-info{flex:1;min-width:0}
+.tcat-name{font-size:.82rem;font-weight:800;color:var(--g900)}
+.tcat-sub{font-size:.66rem;color:var(--gr400)}
+.tarrow{font-size:.85rem;color:var(--g500);transition:transform .25s;flex-shrink:0;font-weight:700}
+.tcat.open .tarrow{transform:rotate(90deg)}
+.tbody{display:none;padding:10px 12px 13px;background:linear-gradient(180deg,var(--g50),#f7fef9);border-top:1px solid var(--g100)}
+.tcat.open .tbody{display:block}
+.titem{display:flex;align-items:flex-start;gap:8px;margin-bottom:9px;font-size:.76rem;line-height:1.55;color:var(--gr600)}
+.titem:last-child{margin-bottom:0}
+.tdot{width:6px;height:6px;background:linear-gradient(135deg,var(--g500),var(--g400));border-radius:50%;margin-top:5px;flex-shrink:0}
+
+/* ══ CHATBOT ══ */
+.fab{position:fixed;bottom:28px;left:28px;z-index:850;width:62px;height:62px;background:linear-gradient(135deg,var(--g800),var(--g500));border-radius:50%;border:none;cursor:pointer;box-shadow:0 8px 28px rgba(20,83,45,.45);display:flex;align-items:center;justify-content:center;transition:.3s}
+.fab::before{content:'';position:absolute;inset:-3px;border-radius:50%;background:linear-gradient(135deg,var(--g600),transparent);opacity:0;transition:.3s;animation:fabRing 2.5s infinite}
+@keyframes fabRing{0%,100%{opacity:0;transform:scale(1)}50%{opacity:.4;transform:scale(1.15)}}
+.fab:hover{transform:scale(1.1) rotate(5deg)}
+.fab svg{width:28px;height:28px;fill:#fff}
+.fab-badge{position:absolute;top:-3px;right:-3px;width:20px;height:20px;background:#ef4444;border-radius:50%;border:2px solid #fff;font-size:.58rem;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;animation:badgeBounce 1s infinite}
+@keyframes badgeBounce{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+.cwin{position:fixed;bottom:104px;left:28px;z-index:850;width:390px;height:580px;background:#fff;border-radius:26px;box-shadow:0 32px 80px rgba(5,46,22,.28);display:none;flex-direction:column;overflow:hidden;border:1px solid var(--g100)}
+.cwin.open{display:flex;animation:winIn .38s cubic-bezier(.34,1.56,.64,1)}
+@keyframes winIn{from{opacity:0;transform:translateY(24px) scale(.93)}to{opacity:1;transform:none}}
+.ch{background:linear-gradient(135deg,var(--g950),var(--g700));padding:16px 18px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.ch-av{width:42px;height:42px;background:rgba(255,255,255,.13);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;border:2px solid rgba(255,255,255,.15)}
+.ch-info .cname{font-size:.92rem;font-weight:900;color:#fff}
+.ch-info .cst{font-size:.66rem;color:rgba(255,255,255,.65);display:flex;align-items:center;gap:5px;margin-top:2px}
+.odot{width:6px;height:6px;background:#4ade80;border-radius:50%;animation:pulse 2s infinite}
+.cclose{margin-right:auto;background:rgba(255,255,255,.12);border:none;color:rgba(255,255,255,.8);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:.9rem;transition:.2s;flex-shrink:0}
+.cclose:hover{background:rgba(255,255,255,.25);color:#fff}
+.cmsgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.cmsgs::-webkit-scrollbar{width:3px}
+.cmsgs::-webkit-scrollbar-thumb{background:var(--g200);border-radius:3px}
+.msg{max-width:88%;padding:10px 14px;border-radius:18px;font-size:.8rem;line-height:1.6;position:relative}
+.msg.bot{background:linear-gradient(135deg,var(--g50),#f0fdf4);color:var(--gr800);border-bottom-right-radius:4px;align-self:flex-start;border:1px solid var(--g100)}
+.msg.user{background:linear-gradient(135deg,var(--g800),var(--g600));color:#fff;border-bottom-left-radius:4px;align-self:flex-end}
+.mtime{font-size:.58rem;opacity:.45;margin-top:4px;display:block}
+.typing-anim{display:flex;gap:4px;padding:10px 14px;background:var(--g50);border-radius:18px;border-bottom-right-radius:4px;align-self:flex-start;border:1px solid var(--g100);width:fit-content}
+.typing-anim span{width:7px;height:7px;background:var(--g400);border-radius:50%;animation:td 1.1s infinite}
+.typing-anim span:nth-child(2){animation-delay:.18s}
+.typing-anim span:nth-child(3){animation-delay:.36s}
+@keyframes td{0%,80%,100%{transform:scale(.75);opacity:.4}40%{transform:scale(1.1);opacity:1}}
+.csuggest{padding:0 12px 10px;display:flex;flex-wrap:wrap;gap:5px;flex-shrink:0}
+.cs{background:var(--g50);border:1px solid var(--g200);border-radius:100px;padding:5px 11px;font-size:.7rem;color:var(--g700);font-weight:700;cursor:pointer;font-family:'Cairo',sans-serif;transition:.15s;white-space:nowrap}
+.cs:hover{background:var(--g100);border-color:var(--g400);transform:translateY(-1px)}
+.cinput{padding:12px;border-top:1px solid var(--g100);display:flex;gap:8px;flex-shrink:0;background:#fff}
+.cinput input{flex:1;padding:10px 14px;border:1.5px solid var(--g200);border-radius:100px;font-family:'Cairo',sans-serif;font-size:.82rem;outline:none;direction:rtl;transition:.2s;background:var(--g50)}
+.cinput input:focus{border-color:var(--g500);background:#fff;box-shadow:0 0 0 3px rgba(34,197,94,.08)}
+.csend{width:38px;height:38px;background:linear-gradient(135deg,var(--g700),var(--g500));border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;flex-shrink:0}
+.csend:hover{background:linear-gradient(135deg,var(--g900),var(--g700));transform:scale(1.08)}
+.csend svg{width:16px;height:16px;fill:#fff}
+
+/* ══ MODAL ══ */
+.mov{display:none;position:fixed;inset:0;background:rgba(5,46,22,.75);z-index:9999;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px)}
+.mov.open{display:flex}
+.mbox{background:#fff;border-radius:28px;width:100%;max-width:430px;overflow:hidden;animation:mIn .36s cubic-bezier(.34,1.56,.64,1);box-shadow:0 40px 100px rgba(5,46,22,.35)}
+@keyframes mIn{from{opacity:0;transform:translateY(28px) scale(.93)}to{opacity:1;transform:none}}
+.mhead{background:linear-gradient(135deg,var(--g950),var(--g700));padding:22px 26px;position:relative}
+.mhead .tag{font-size:.65rem;color:var(--g300);font-weight:800;letter-spacing:.1em;margin-bottom:5px}
+.mprodnm{font-size:1.05rem;font-weight:900;color:#fff;line-height:1.3}
+.mcls{position:absolute;top:14px;left:14px;width:30px;height:30px;background:rgba(255,255,255,.14);border:none;border-radius:50%;color:#fff;cursor:pointer;font-size:.9rem;transition:.2s;display:flex;align-items:center;justify-content:center}
+.mcls:hover{background:rgba(255,255,255,.28)}
+.mbody{padding:24px}
+.qrow{display:flex;align-items:center;justify-content:space-between;background:var(--g50);border:1px solid var(--g100);padding:13px 16px;border-radius:14px;margin-bottom:16px}
+.qctrls{display:flex;align-items:center;gap:14px}
+.qbtn{width:34px;height:34px;background:#fff;border:1px solid var(--g200);border-radius:9px;font-size:1.1rem;font-weight:700;color:var(--g700);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s}
+.qbtn:hover{background:var(--g700);color:#fff;border-color:var(--g700)}
+.qnum{font-size:1.3rem;font-weight:900;color:var(--g950);min-width:22px;text-align:center}
+.mfield{margin-bottom:12px}
+.mfield input{width:100%;padding:13px 15px;background:var(--gr50);border:1.5px solid var(--gr200);border-radius:12px;font-family:'Cairo',sans-serif;font-size:.87rem;color:var(--gr800);outline:none;transition:.2s;direction:rtl}
+.mfield input:focus{border-color:var(--g500);background:#fff;box-shadow:0 0 0 3px rgba(34,197,94,.08)}
+.mfield input::placeholder{color:var(--gr400)}
+.msbmt{width:100%;padding:14px;background:linear-gradient(135deg,var(--g800),var(--g600));color:#fff;border:none;border-radius:13px;font-family:'Cairo',sans-serif;font-size:.95rem;font-weight:800;cursor:pointer;transition:.25s;box-shadow:0 6px 20px rgba(22,163,74,.28);margin-top:4px}
+.msbmt:hover{transform:translateY(-1px);box-shadow:0 10px 28px rgba(22,163,74,.38)}
+.msbmt:disabled{opacity:.62;cursor:not-allowed;transform:none}
+
+/* ══ FOOTER ══ */
+footer{background:var(--g950);color:#fff;padding:68px 2rem 46px;position:relative;overflow:hidden}
+footer::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--g500),transparent)}
+footer::after{content:'';position:absolute;bottom:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(34,197,94,.06) 0%,transparent 70%);border-radius:50%}
+.fin{max-width:1420px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;position:relative;z-index:1}
+.fin h3{font-size:1.6rem;font-weight:900;margin-bottom:10px;letter-spacing:-.025em}
+.fin>div>p{opacity:.55;line-height:1.75;font-size:.88rem;margin-bottom:26px}
+.fcts{display:flex;flex-direction:column;gap:10px;margin-bottom:26px}
+.frow{display:flex;align-items:center;gap:9px;font-size:.84rem;opacity:.78}
+.fico{width:33px;height:33px;background:rgba(255,255,255,.07);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.84rem;flex-shrink:0}
+.mbtn{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--g900);padding:12px 24px;border-radius:100px;text-decoration:none;font-weight:900;font-size:.84rem;transition:.2s}
+.mbtn:hover{background:var(--g100);transform:translateY(-2px)}
+.mfr{height:272px;border-radius:20px;overflow:hidden;border:2px solid rgba(255,255,255,.09);box-shadow:0 8px 32px rgba(0,0,0,.3)}
+.mfr iframe{width:100%;height:100%;border:none}
+.fbtm{max-width:1420px;margin:38px auto 0;padding-top:22px;border-top:1px solid rgba(255,255,255,.08);text-align:center;font-size:.73rem;opacity:.35}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:1100px){.side-c{width:300px}}
+@media(max-width:900px){.cols{flex-direction:column}.side-c{width:100%;position:static}.pill{display:none}.fin{grid-template-columns:1fr}}
+@media(max-width:600px){.hdr{gap:8px}.srch{flex:1}.logo-text .sb{display:none}.stat+.stat{border:none}.stat{padding:0 16px}.cwin{width:calc(100vw - 40px);left:20px}}
+</style>
 </head>
 <body>
 
-    <!-- HEADER -->
-    <header>
-        <div class="header-inner">
-            <div class="logo-wrap">
-                <img src="https://i.ibb.co/C3tQkBgs/SDS-PNG.png" alt="صيدلية بن لولو">
-                <div>
-                    <div class="logo-name">صيدلية بن لولو</div>
-                    <div class="logo-sub">حي أينورار — القرارة</div>
-                </div>
-            </div>
+<!-- Animated Background -->
+<div class="bg-canvas"></div>
+<div class="bg-orb"></div>
+<div class="bg-shapes" id="bgShapes"></div>
 
-            <div class="search-wrap">
-                <input type="text" class="search-input" id="searchInput" placeholder="ابحث عن منتج..." oninput="filterProducts(this.value)">
-                <span class="search-icon">🔍</span>
-                <span class="search-results-count" id="resultsCount"></span>
-            </div>
+<!-- HEADER -->
+<header>
+ <div class="hdr">
+  <a class="logo" href="#">
+   <img src="https://i.ibb.co/C3tQkBgs/SDS-PNG.png" alt="صيدلية بن لولو">
+   <div class="logo-text">
+    <div class="nm">صيدلية بن لولو</div>
+    <div class="sb">حي أينورار — القرارة، غرداية</div>
+   </div>
+  </a>
+  <div class="srch">
+   <span class="srch-ico">🔍</span>
+   <input type="text" id="si" placeholder="ابحث عن منتج...">
+   <div class="srch-drop" id="sd"></div>
+  </div>
+  <div class="hdr-r">
+   <span class="pill">✅ توصيل لجميع الولايات</span>
+   <a href="tel:+213558061159" class="cbtn"><span class="live-dot"></span>0558 06 11 59</a>
+  </div>
+ </div>
+</header>
 
-            <div class="header-cta">
-                <span class="pill-badge">✅ خدمة التوصيل متاحة</span>
-                <a href="tel:+213558061159" class="call-btn">
-                    <span class="call-dot"></span>
-                    0558 06 11 59
-                </a>
-            </div>
-        </div>
-    </header>
+<!-- HERO -->
+<section class="hero">
+ <div class="hero-glow"></div>
+ <div class="hero-grid"></div>
+ <div class="hero-tag">🌿 صيدلية موثوقة منذ سنوات</div>
+ <h1>صحتكم<br><em>أمانتنا</em></h1>
+ <p>نوفر لكم أفضل المنتجات الصحية مع خدمة التوصيل لجميع أنحاء الوطن بكل أمانة وسرعة واحترافية</p>
+ <div class="stats">
+  <div class="stat"><div class="n">100%</div><div class="l">PRODUITS ORIGINAUX</div></div>
+  <div class="stat"><div class="n">48h</div><div class="l">LIVRAISON RAPIDE</div></div>
+  <div class="stat"><div class="n">24/7</div><div class="l">SUPPORT CLIENT</div></div>
+  <div class="stat"><div class="n">+1000</div><div class="l">CLIENTS SATISFAITS</div></div>
+ </div>
+</section>
 
-    <!-- HERO -->
-    <section class="hero">
-        <div class="hero-tag"><span>🌿</span> صيدلية موثوقة منذ سنوات</div>
-        <h1>صحتكم <span>أمانتنا</span></h1>
-        <p>نوفر لكم أفضل المنتجات الصحية مع خدمة التوصيل لجميع أنحاء الوطن بكل أمانة وسرعة</p>
-        <div class="hero-stats">
-            <div class="hero-stat"><div class="num">100%</div><div class="lbl">منتجات أصلية</div></div>
-            <div class="hero-divider"></div>
-            <div class="hero-stat"><div class="num">48h</div><div class="lbl">توصيل سريع</div></div>
-            <div class="hero-divider"></div>
-            <div class="hero-stat"><div class="num">24/7</div><div class="lbl">دعم العملاء</div></div>
-        </div>
-    </section>
-
-    <!-- PAGE LAYOUT: Main + Sidebar -->
-    <div class="page-layout">
-        <!-- MAIN PRODUCTS -->
-        <main class="main-content" id="shop-container">
-            <div class="no-results" id="noResults">
-                <div class="no-results-icon">🔍</div>
-                <h3>لم يتم العثور على نتائج</h3>
-                <p>جرب البحث بكلمات مختلفة</p>
-            </div>
-        </main>
-
-        <!-- HEALTH TIPS SIDEBAR -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h2>💡 نصائح صحية</h2>
-                <p>إرشادات لأمراض مزمنة وشائعة</p>
-            </div>
-            <div class="sidebar-body" id="healthTips"></div>
-        </aside>
+<!-- CONTENT -->
+<div class="wrap">
+ <div class="cols">
+  <main class="main-c" id="shop"></main>
+  <aside class="side-c">
+   <div class="tpanel">
+    <div class="tp-head">
+     <h3>🩺 نصائح طبية متخصصة</h3>
+     <p>اضغط لعرض النصائح لكل حالة</p>
     </div>
+    <div class="tp-srch"><input type="text" id="tsrch" placeholder="ابحث عن مرض أو حالة..."></div>
+    <div class="tcats" id="tlist"></div>
+   </div>
+  </aside>
+ </div>
+</div>
 
-    <!-- FOOTER -->
-    <footer class="footer-section">
-        <div class="footer-inner">
-            <div class="footer-info">
-                <h3>نحن في خدمتكم</h3>
-                <p>تجدوننا في حي أينورار، بلدية القرارة، ولاية غرداية. نرحب بزيارتكم أو يمكنكم الطلب عبر الهاتف.</p>
-                <div class="footer-contact">
-                    <div class="contact-row"><div class="contact-icon">📍</div> حي أينورار، القرارة، غرداية</div>
-                    <div class="contact-row"><div class="contact-icon">📞</div> 0558 06 11 59</div>
-                </div>
-                <a href="https://www.google.com/maps?q=QFQW%2BJFQ+El+Guerrara+Algeria" target="_blank" class="map-btn">🗺️ فتح الخريطة</a>
-            </div>
-            <div class="map-frame">
-                <iframe src="https://www.google.com/maps?q=QFQW%2BJFQ+El+Guerrara+Algeria&output=embed" allowfullscreen loading="lazy"></iframe>
-            </div>
-        </div>
-        <div class="footer-bottom">© 2025 صيدلية بن لولو — جميع الحقوق محفوظة</div>
-    </footer>
+<!-- FOOTER -->
+<footer>
+ <div class="fin">
+  <div>
+   <h3>نحن في خدمتكم دائماً</h3>
+   <p>تجدوننا في حي أينورار، بلدية القرارة، ولاية غرداية. نرحب بزيارتكم أو الطلب عبر الهاتف مع ضمان التوصيل.</p>
+   <div class="fcts">
+    <div class="frow"><div class="fico">📍</div>حي أينورار، القرارة، غرداية</div>
+    <div class="frow"><div class="fico">📞</div>0558 06 11 59</div>
+    <div class="frow"><div class="fico">🕐</div>السبت – الخميس | 8:00 – 12:00 و 15:00 – 21:00</div>
+   </div>
+   <a href="https://www.google.com/maps?q=QFQW%2BJFQ+El+Guerrara+Algeria" target="_blank" class="mbtn">🗺️ فتح الخريطة</a>
+  </div>
+  <div class="mfr">
+   <iframe src="https://www.google.com/maps?q=QFQW%2BJFQ+El+Guerrara+Algeria&output=embed" allowfullscreen loading="lazy"></iframe>
+  </div>
+ </div>
+ <div class="fbtm">© 2025 صيدلية بن لولو — جميع الحقوق محفوظة</div>
+</footer>
 
-    <!-- ORDER MODAL -->
-    <div class="modal-overlay" id="modal">
-        <div class="modal-box">
-            <div class="modal-head">
-                <button class="modal-close" onclick="closeModal()">✕</button>
-                <div class="modal-head-tag">اطلب الآن</div>
-                <div class="modal-product-name" id="modalProductName">—</div>
-            </div>
-            <div class="modal-body">
-                <div class="qty-row">
-                    <span class="qty-label">الكمية</span>
-                    <div class="qty-controls">
-                        <button class="qty-btn" onclick="changeQty(-1)">−</button>
-                        <span class="qty-num" id="qtyDisplay">1</span>
-                        <button class="qty-btn" onclick="changeQty(1)">+</button>
-                    </div>
-                </div>
-                <div class="form-field"><input type="text" id="custName" placeholder="الاسم الكامل" required></div>
-                <div class="form-field"><input type="tel" id="custPhone" placeholder="رقم الهاتف"></div>
-                <div class="form-field"><input type="text" id="custState" placeholder="الولاية"></div>
-                <button class="submit-btn" id="submitBtn" onclick="submitOrder()">إرسال الطلب ←</button>
-            </div>
-        </div>
+<!-- ORDER MODAL -->
+<div class="mov" id="modal">
+ <div class="mbox">
+  <div class="mhead">
+   <button class="mcls" onclick="closeModal()">✕</button>
+   <div class="tag">🛒 اطلب الآن</div>
+   <div class="mprodnm" id="mname"></div>
+  </div>
+  <div class="mbody">
+   <div class="qrow">
+    <span style="font-size:.88rem;font-weight:700;color:var(--g800)">الكمية</span>
+    <div class="qctrls">
+     <button class="qbtn" onclick="chQty(-1)">−</button>
+     <span class="qnum" id="qdsp">1</span>
+     <button class="qbtn" onclick="chQty(1)">+</button>
     </div>
+   </div>
+   <div class="mfield"><input id="cname" placeholder="الاسم الكامل" required></div>
+   <div class="mfield"><input id="cphone" type="tel" placeholder="رقم الهاتف" required></div>
+   <div class="mfield"><input id="cstate" placeholder="الولاية" required></div>
+   <button class="msbmt" id="sbmt" onclick="submitOrd()">إرسال الطلب ←</button>
+  </div>
+ </div>
+</div>
 
-    <!-- AI CHATBOT FAB -->
-    <button class="chat-fab" onclick="toggleChat()" id="chatFab" title="المساعد الذكي">
-        🤖
-        <span class="chat-fab-badge" id="chatBadge">1</span>
-    </button>
+<!-- CHATBOT FAB -->
+<button class="fab" id="fab" onclick="toggleChat()">
+ <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.02 2 11c0 2.87 1.3 5.44 3.35 7.21L4 22l3.9-1.95C9.2 20.63 10.57 21 12 21c5.52 0 10-4.02 10-9S17.52 2 12 2zm1 13H7v-2h6v2zm3-4H7V9h9v2z"/></svg>
+ <div class="fab-badge" id="fbadge">1</div>
+</button>
 
-    <!-- AI CHAT WINDOW -->
-    <div class="chat-window" id="chatWindow">
-        <div class="chat-header">
-            <div class="ai-avatar">
-                🤖
-                <div class="ai-status"></div>
-            </div>
-            <div class="chat-header-info">
-                <h3>مساعد صيدلية بن لولو</h3>
-                <p>مساعد ذكي متاح 24/7 • يعمل بالذكاء الاصطناعي</p>
-            </div>
-            <button class="chat-close" onclick="toggleChat()">✕</button>
-        </div>
+<!-- CHATBOT WINDOW -->
+<div class="cwin" id="cwin">
+ <div class="ch">
+  <div class="ch-av">👨‍⚕️</div>
+  <div class="ch-info">
+   <div class="cname">د. بوت — مساعد صيدلية بن لولو</div>
+   <div class="cst"><span class="odot"></span>متاح الآن للإجابة</div>
+  </div>
+  <button class="cclose" onclick="toggleChat()">✕</button>
+ </div>
+ <div class="cmsgs" id="cmsgs"></div>
+ <div class="csuggest" id="csugg"></div>
+ <div class="cinput">
+  <input type="text" id="cinp" placeholder="اكتب سؤالك..." onkeydown="if(event.key==='Enter')send()">
+  <button class="csend" onclick="send()">
+   <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+  </button>
+ </div>
+</div>
 
-        <div class="chat-messages" id="chatMessages">
-            <div class="msg bot">
-                <div class="msg-avatar">🤖</div>
-                <div>
-                    <div class="msg-bubble">مرحباً بك في صيدلية بن لولو! 👋<br><br>أنا مساعدك الصحي الذكي. يمكنني مساعدتك في:<br>• الاستفسار عن المنتجات والأدوية<br>• نصائح صحية لأمراضك المزمنة<br>• إرشادات التغذية والعلاج<br><br>كيف يمكنني مساعدتك اليوم؟</div>
-                    <div class="msg-time">الآن</div>
-                </div>
-            </div>
-            <div class="typing-indicator" id="typingIndicator">
-                <div class="typing-dot"></div>
-                <div class="typing-dot"></div>
-                <div class="typing-dot"></div>
-            </div>
-        </div>
+<script>
+/* ══ BG SHAPES ══ */
+const ICONS=['⚕','💊','🩺','🧬','💉','🩹','🏥','🧪','🌿','❤️'];
+const bs=document.getElementById('bgShapes');
+for(let i=0;i<18;i++){
+  const s=document.createElement('div');
+  s.className='shape';
+  s.textContent=ICONS[i%ICONS.length];
+  s.style.cssText=`left:${Math.random()*100}%;font-size:${1.5+Math.random()*2}rem;animation-duration:${18+Math.random()*20}s;animation-delay:${Math.random()*20}s`;
+  bs.appendChild(s);
+}
 
-        <div class="quick-replies" id="quickReplies">
-            <button class="quick-reply" onclick="sendQuickReply('نصائح لمرض السكري')">🩸 السكري</button>
-            <button class="quick-reply" onclick="sendQuickReply('نصائح لآلام المفاصل')">🦴 المفاصل</button>
-            <button class="quick-reply" onclick="sendQuickReply('علاج تساقط الشعر')">💇 الشعر</button>
-            <button class="quick-reply" onclick="sendQuickReply('نصائح لأمراض الكلى')">🫘 الكلى</button>
-            <button class="quick-reply" onclick="sendQuickReply('علاج حب الشباب')">✨ البشرة</button>
-        </div>
+/* ══ INVENTORY ══ */
+const WEB_URL="https://script.google.com/macros/s/AKfycbxzot2ne0cGAXaPLrnsdJFeh8PywgpeqvqN6kpEUEL3AzXFXs8XBcnnCEuE-CGTw0Yw/exec";
+const INV=[
+ {cat:"آلام المفاصل والعضلات",ico:"💊",items:[
+  {n:'Moov 100G',p:'0 دج',img:'https://thiqapharmacy.com/wp-content/uploads/2024/03/MOOV-RAPID-RELIEF-OINTMENT-100-G.JPG-jpg.webp'},
+  {n:'Moov 50g',p:'0 دج',img:'https://hungerstation.dhmedia.io/image/product-information-management/67c8e56363025e21e6f2ef57.jpg?width=1440&quality=75&webp=true'},
+  {n:'Gel Scorpion',p:'0 دج',img:'https://i5.walmartimages.com/asr/47059687-8960-4500-af85-52341c050242.6c5896ec296aa6f1507f6d2082695606.jpeg'},
+  {n:'جل فولترين Voltaren',p:'0 دج',img:'https://www.soin-et-nature.com/media/cache/shop_product_large_thumbnail/products/5/3/3/3/9/53339.jpg'}
+ ]},
+ {cat:"الحفاضات للكبار والصغار",ico:"🛡️",items:[
+  {n:'CAN BEBE N1 P/9',p:'0 دج',img:'https://i.postimg.cc/QVLtCM8v/CAN-BEBE-1.png'},
+  {n:'CAN BEBE N2 P/9',p:'0 دج',img:'https://i.postimg.cc/1XVXyFQ0/CAN-BEBE-2.png'},
+  {n:'CAN BEBE N3 P/9',p:'0 دج',img:'https://i.postimg.cc/XJ1PWGj1/CAN-BEBE-3.png'},
+  {n:'couche adulte uniform culotte L',p:'0 دج',img:'https://i.postimg.cc/XJFkXr3R/gpt-image-1-5-high-fidelity-a-qm-banshaʾ-swrt-llmnt-(2).png'},
+  {n:'couche adulte uniform culotte M',p:'0 دج',img:'https://www.safinternationalproductdz.com/wp-content/uploads/2025/09/saf_faderco_cotex_uniform_couche_adulte.png'},
+  {n:'couche adulte uniform Scratch L',p:'0 دج',img:'https://parapharmacyonline.com/wp-content/uploads/2022/07/PC0231-UNIFORM-COUCHE-ADULTE-SCRATCH-LARGE-P8.jpg'},
+  {n:'couche adulte uniform Scratch M',p:'0 دج',img:'https://parapharmacyonline.com/wp-content/uploads/2022/07/PC0232-UNIFORM-COUCHE-ADULTE-SCRATCH-MEDIUM-P10-C6.jpg'}
+ ]},
+ {cat:"عناية الأطفال",ico:"🌸",items:[
+  {n:'Douce Plus Talc 100G',p:'0 دج',img:'https://i.postimg.cc/h4yHVwq9/gpt-image-1-5-high-fidelity-a-qm-banshaʾ-swrt-llmnt-(1).png'}
+ ]},
+ {cat:"المكملات الغذائية",ico:"🌿",items:[
+  {n:'BIOMAX OMEGA 3.6.9',p:'0 دج',img:'https://biomax.dz/api/file/3454'}
+ ]}
+];
 
-        <div class="chat-input-area">
-            <input type="text" class="chat-input" id="chatInput" placeholder="اكتب سؤالك هنا..." onkeydown="if(event.key==='Enter') sendMessage()">
-            <button class="send-btn" onclick="sendMessage()">➤</button>
-        </div>
-    </div>
+/* render products */
+const shop=document.getElementById('shop');
+function renderProds(data){
+ shop.innerHTML='';
+ data.forEach(s=>{
+  const b=document.createElement('div');
+  b.className='sec';
+  b.innerHTML=`<div class="sec-h"><div class="sec-ico">${s.ico}</div><div class="sec-meta"><div class="lbl">منتجاتنا</div><div class="ttl">${s.cat}</div></div></div>
+  <div class="pgrid">${s.items.map(it=>`<div class="pcard" onclick="openModal('${it.n.replace(/'/g,"\\'")}','${it.p}')">
+   <div class="pimg"><img src="${it.img}" alt="${it.n}" loading="lazy"></div>
+   <div class="pbody"><div class="pname">${it.n}</div><div class="pprice">${it.p}</div>
+   <button class="obtn">🛒 اطلب الآن</button></div></div>`).join('')}</div>`;
+  shop.appendChild(b);
+ });
+}
+renderProds(INV);
 
-    <script>
-        const webUrl = "https://script.google.com/macros/s/AKfycbxzot2ne0cGAXaPLrnsdJFeh8PywgpeqvqN6kpEUEL3AzXFXs8XBcnnCEuE-CGTw0Yw/exec";
+/* ══ SEARCH ══ */
+const si=document.getElementById('si'), sd=document.getElementById('sd');
+si.addEventListener('input',()=>{
+ const q=si.value.trim().toLowerCase();
+ if(!q){sd.classList.remove('show');return}
+ const m=[];
+ INV.forEach(s=>s.items.forEach(it=>{if(it.n.toLowerCase().includes(q)||s.cat.includes(q))m.push({...it,cat:s.cat})}));
+ sd.innerHTML=!m.length?'<div class="sd-empty">لا توجد نتائج 🔍</div>':
+  m.slice(0,7).map(it=>`<div class="sd-item" onclick="openModal('${it.n.replace(/'/g,"\\'")}','${it.p}');si.value='';sd.classList.remove('show')">
+   <img src="${it.img}" alt=""><div><div style="font-weight:800;font-size:.82rem">${it.n}</div><div style="font-size:.68rem;color:var(--gr400)">${it.cat}</div></div></div>`).join('');
+ sd.classList.add('show');
+});
+document.addEventListener('click',e=>{if(!e.target.closest('.srch'))sd.classList.remove('show')});
 
-        // ===== INVENTORY =====
-        const inventory = [
-            {
-                category: "آلام المفاصل والعضلات",
-                icon: "💊",
-                items: [
-                    {name: 'Moov 100G', price: '0 دج', img: 'https://thiqapharmacy.com/wp-content/uploads/2024/03/MOOV-RAPID-RELIEF-OINTMENT-100-G.JPG-jpg.webp'},
-                    {name: 'Moov 50g', price: '0 دج', img: 'https://hungerstation.dhmedia.io/image/product-information-management/67c8e56363025e21e6f2ef57.jpg?width=1440&quality=75&webp=true'},
-                    {name: 'Gel Scorpion', price: '0 دج', img: 'https://i5.walmartimages.com/asr/47059687-8960-4500-af85-52341c050242.6c5896ec296aa6f1507f6d2082695606.jpeg'},
-                    {name: 'جل فولترين Voltaren', price: '0 دج', img: 'https://www.soin-et-nature.com/media/cache/shop_product_large_thumbnail/products/5/3/3/3/9/53339.jpg'}
-                ]
-            },
-            {
-                category: "الحفاضات للكبار والصغار",
-                icon: "🛡️",
-                items: [
-                    {name: 'CAN BEBE N1 P/9', price: '0 دج', img: 'https://i.postimg.cc/QVLtCM8v/CAN-BEBE-1.png'},
-                    {name: 'CAN BEBE N2 P/9', price: '0 دج', img: 'https://i.postimg.cc/1XVXyFQ0/CAN-BEBE-2.png'},
-                    {name: 'CAN BEBE N3 P/9', price: '0 دج', img: 'https://i.postimg.cc/XJ1PWGj1/CAN-BEBE-3.png'},
-                    {name: 'couche adulte uniform culotte L', price: '0 دج', img: 'https://i.postimg.cc/XJFkXr3R/gpt-image-1-5-high-fidelity-a-qm-banshaʾ-swrt-llmnt-(2).png'},
-                    {name: 'couche adulte uniform culotte M', price: '0 دج', img: 'https://www.safinternationalproductdz.com/wp-content/uploads/2025/09/saf_faderco_cotex_uniform_couche_adulte.png'},
-                    {name: 'couche adulte uniform Scratch L', price: '0 DA', img: 'https://parapharmacyonline.com/wp-content/uploads/2022/07/PC0231-UNIFORM-COUCHE-ADULTE-SCRATCH-LARGE-P8.jpg'},
-                    {name: 'couche adulte uniform Scratch M', price: '0 DA', img: 'https://parapharmacyonline.com/wp-content/uploads/2022/07/PC0232-UNIFORM-COUCHE-ADULTE-SCRATCH-MEDIUM-P10-C6.jpg'},
-                ]
-            },
-            {
-                category: "عناية الأطفال",
-                icon: "🌸",
-                items: [
-                    {name: 'Douce Plus Talc 100G', price: '0 دج', img: 'https://i.postimg.cc/h4yHVwq9/gpt-image-1-5-high-fidelity-a-qm-banshaʾ-swrt-llmnt-(1).png'}
-                ]
-            },
-            {
-                category: "المكملات الغذائية",
-                icon: "🌿",
-                items: [
-                    {name: 'BIOMAX OMEGA 3.6.9', price: '0 دج', img: 'https://biomax.dz/api/file/3454'}
-                ]
-            }
-        ];
+/* ══ HEALTH TIPS ══ */
+const TIPS=[
+ {id:'g',nm:'السكري',sub:'نصائح شاملة لمرضى السكري',img:'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=88&h=88&fit=crop&q=80',tips:['راقب نسبة السكر في الدم يومياً في نفس الأوقات المحددة','تناول الكربوهيدرات المعقدة (حبوب كاملة، بقوليات) وتجنب السكر المكرر','المشي 30 دقيقة يومياً يحسن حساسية الأنسولين بشكل ملحوظ','تناول 3 وجبات رئيسية منتظمة مع وجبتين خفيفتين ولا تتخط وجبة أبداً','اشرب 8-10 أكواب ماء يومياً للمساعدة في التحكم بالسكر','افحص قدميك يومياً لتجنب تقرحات الأوعية الدموية','احمل دائماً سكراً سريع المفعول معك لحالات نقص السكر','يُنصح بفحص الهيموغلوبين السكري HbA1c كل 3 أشهر']},
+ {id:'k',nm:'أمراض الكلى',sub:'حماية وصيانة الكلى',img:'https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=88&h=88&fit=crop&q=80',tips:['قلل الصوديوم (الملح) إلى أقل من 2 غرام يومياً في الطعام','اشرب 2-2.5 لتر ماء يومياً لتنظيف الكلى وتجنب الحصى','تجنب مضادات الالتهاب NSAID بدون وصفة طبية فهي تضر الكلى','راقب ضغط الدم بانتظام — الضغط المرتفع يدمر الكلى تدريجياً','قلل البروتين الحيواني الزائد واستبدله بالبروتين النباتي','تجنب المواد الكيميائية والأصباغ ومبيدات الآفات','أجرِ تحليل وظائف الكلى مرة كل 6 أشهر على الأقل','توقف عن التدخين فوراً — يضاعف خطر الفشل الكلوي']},
+ {id:'h',nm:'تساقط الشعر',sub:'أسباب وحلول فعالة',img:'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=88&h=88&fit=crop&q=80',tips:['افحص مستوى الحديد، الزنك، وفيتامين D — نقصها السبب الأول للتساقط','تناول البيوتين (فيتامين B7) والبروتين الكافي يومياً','دلك فروة الرأس 5 دقائق يومياً بأطراف الأصابع لتحسين الدورة الدموية','تجنب الشامبو المحتوية على كبريتات الصوديوم (SLS) الضارة','لا تربط الشعر بشد قوي مستمر (تراكشن ألوبيشيا)','الإجهاد المزمن يرفع الكورتيزول ويسبب تساقط الشعر — مارس الاسترخاء','زيت الروزماري ثبت علمياً أنه يساوي مينوكسيديل في بعض الدراسات','استشر طبيب جلدية إذا تجاوز التساقط 100 شعرة يومياً']},
+ {id:'ac',nm:'حب الشباب والبشرة الدهنية',sub:'بشرة صافية وصحية',img:'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=88&h=88&fit=crop&q=80',tips:['اغسل وجهك مرتين يومياً فقط — أكثر يزيد الدهون تعويضاً','لا تعصر البثور أبداً — ينشر البكتيريا ويسبب الندوب','تجنب السكريات عالية المؤشر الجلايسيمي والألبان المجففة','استخدم مرطب خفيف non-comedogenic يومياً حتى للبشرة الدهنية','حمض الساليسيليك وBenzoyl peroxide فعالان ضد البكتيريا','نظف هاتفك ووسادتك باستمرار — مصدر خفي للبكتيريا','الرتينول (فيتامين A) من أفضل المكونات لعلاج الحبوب والندوب','راجع طبيب جلدية إذا كانت الحبوب عميقة أو متكيسة']},
+ {id:'ds',nm:'جفاف الجلد والأكزيما',sub:'ترطيب وعناية متكاملة',img:'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=88&h=88&fit=crop&q=80',tips:['ضع المرطب خلال 3 دقائق من الخروج من الحمام على جلد رطب','استخدم ماء فاتراً (أقل من 37°) عند الاستحمام ولا تتجاوز 10 دقائق','اختر المرطبات المحتوية على السيراميد، حمض الهيالورونيك، أو اليوريا','تجنب العطور والكحول في منتجات العناية — تجفف الجلد بشدة','الاستحمام بمنتج يحتوي على زيت جوز الهند أو الشوفان يهدئ الأكزيما','الرطوبة المنخفضة تفاقم الجفاف — استخدم مرطب هواء في الغرفة','تجنب خدش الجلد الجاف — يفتح الباب للعدوى البكتيرية','شرب 8 أكواب ماء يومياً يحسن مرونة الجلد من الداخل']},
+ {id:'bp',nm:'ضغط الدم المرتفع',sub:'السيطرة والوقاية الفعالة',img:'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=88&h=88&fit=crop&q=80',tips:['قلل الصوديوم إلى أقل من 1500mg يومياً — قرأ ملصقات الأغذية','مارس 150 دقيقة هوائية أسبوعياً (30 دقيقة x 5 أيام)','تعلم تقنية التنفس الحجابي — تخفض الضغط خلال دقائق','الإقلاع عن التدخين يخفض الضغط بعد 20 دقيقة من آخر سيجارة','تناول الغنيّ بالبوتاسيوم: موز، سبانخ، بطاطا حلوة، أفوكادو','فحص الضغط يومياً في نفس الوقت (صباحاً قبل الأكل) وتسجيل القراءات','الكحول بشكل منتظم يرفع الضغط — الحد الأقصى كوب يومياً','دواء الضغط يجب أخذه يومياً حتى عند الشعور بالتحسن']},
+ {id:'jt',nm:'آلام المفاصل والروماتيزم',sub:'حركة أفضل وألم أقل',img:'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=88&h=88&fit=crop&q=80',tips:['الحفاظ على وزن صحي — كل كيلو زيادة = 4 كيلو ضغط على الركبة','سباحة وركوب الدراجة أفضل الرياضات لأنهما بلا تأثير صدمي','الأوميغا 3 والكركم من المكملات الأكثر دعماً علمياً لتقليل الالتهاب','كمادات دافئة للآلام المزمنة وباردة للالتهابات الحادة (أول 48 ساعة)','الجلوكوزامين والكوندرويتين قد يساعدان في حماية غضروف الركبة','تجنب الجلوس أكثر من ساعة متواصلة — قم وتحرك كل 45 دقيقة','النوم الكافي ضروري — الجسم يصلح الغضاريف أثناء النوم العميق','اطلب جرعة فيتامين D إذا كانت مستوياتك منخفضة — ثبت ارتباطه بالروماتيزم']},
+ {id:'st',nm:'أمراض المعدة والهضم',sub:'هضم سليم وراحة دائمة',img:'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=88&h=88&fit=crop&q=80',tips:['مضغ الطعام ببطء (20 مضغة لكل لقمة) يقلل انتفاخ البطن 60%','تناول الوجبة الأخيرة قبل النوم بـ 3 ساعات على الأقل','البروبيوتيك (زبادي، كفير) يوازن بكتيريا الأمعاء ويقلل الإسهال','تجنب المضادات الحيوية بدون ضرورة — تدمر بكتيريا الأمعاء النافعة','الكركم والزنجبيل مضادات طبيعية فعالة للالتهابات المعدية','اشرب الماء قبل الوجبة بـ 30 دقيقة لا أثناءها — يساعد الهضم','الحرقة المتكررة قد تكون ارتجاع GERD — استشر طبيب لا تهمله','تناول الألياف تدريجياً لتجنب الانتفاخ: بداية 5g/يوم ثم زيادة']},
+ {id:'sl',nm:'اضطرابات النوم والأرق',sub:'نوم عميق ومريح',img:'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=88&h=88&fit=crop&q=80',tips:['حافظ على نفس موعد النوم والاستيقاظ 7 أيام أسبوعياً حتى الإجازات','الضوء الأزرق للشاشات يقمع الميلاتونين — توقف عن الشاشات ساعة قبل النوم','الغرفة المثالية: 18-20° مئوي، مظلمة تماماً، هادئة','تمرين 4-7-8: استنشق 4 ثوان، احبس 7 ثوان، أخرج 8 ثوان — 4 مرات','تجنب الكافيين بعد الساعة 2 ظهراً — نصف عمره 6 ساعات في الجسم','المغنيسيوم (250mg قبل النوم) يحسن جودة النوم بشكل ملحوظ','الميلاتونين (0.5-3mg) آمن للاستخدام قصير المدى لاضطرابات الرحلات','الكحول يدمر مراحل النوم العميق رغم أنه يساعد على النعاس']},
+ {id:'im',nm:'تقوية المناعة',sub:'جسم مقاوم وصحة متينة',img:'https://images.unsplash.com/photo-1505576399279-565b52d4ac71?w=88&h=88&fit=crop&q=80',tips:['فيتامين D (1000-2000 IU يومياً) من أقوى داعمات المناعة المثبتة علمياً','فيتامين C من الغذاء (برتقال، فلفل أحمر) أفضل من المكملات','الزنك يقلل مدة نزلة البرد — المحار، اللحوم الحمراء، البذور غنية به','7-9 ساعات نوم يومياً تضاعف كفاءة الخلايا المناعية','الرياضة المعتدلة ترفع المناعة — الرياضة الشديدة تخفضها مؤقتاً','البروبيوتيك يدعم 70% من الجهاز المناعي الموجود في الأمعاء','تقليل التوتر المزمن ضروري — الكورتيزول المرتفع يقمع المناعة','التعرض لأشعة الشمس 15 دقيقة صباحاً يرفع فيتامين D الطبيعي']},
+ {id:'ch',nm:'صحة القلب والأوعية',sub:'قلب قوي وشرايين نظيفة',img:'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=88&h=88&fit=crop&q=80',tips:['الأوميغا 3 (سمك دهني مرتين أسبوعياً) يخفض الدهون الثلاثية 30%','رياضة التحمل (مشي سريع، جري خفيف) أفضل رياضة لصحة القلب','تجنب الدهون المتحولة (Trans fat) في الزيوت المهدرجة والأطعمة المعالجة','الثوم ثبت علمياً أنه يخفض الكوليسترول والضغط الشرياني','الإقلاع عن التدخين يخفض خطر النوبة القلبية 50% خلال سنة','اكشف مستوى الكوليسترول والسكر والضغط سنوياً بعد الـ 40','النوم أقل من 6 ساعات يرفع خطر أمراض القلب بنسبة 48%','الإجهاد العاطفي المزمن يسبب تصلب الشرايين — اهتم بصحتك النفسية']},
+ {id:'nt',nm:'التغذية الصحية والوزن',sub:'أكل سليم وجسم متوازن',img:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=88&h=88&fit=crop&q=80',tips:['قاعدة الطبق: نصفه خضروات، ربعه بروتين، ربعه كربوهيدرات معقدة','اقرأ الملصقات: أول 3 مكونات تحكم على المنتج — تجنب السكر في المرتبة الأولى','الأكل ببطء وبوعي (Mindful eating) يقلل الاستهلاك 20% دون تجويع','البروتين يرفع معدل الحرق ويشبع أكثر من الكربوهيدرات والدهون','الألياف تغذي بكتيريا الأمعاء المفيدة — اهدف لـ 30g يومياً','الدهون الصحية (أفوكادو، مكسرات، زيت زيتون) ضرورية لامتصاص الفيتامينات','لا توجد أطعمة محظورة في التغذية — الكمية والتوازن هو المفتاح','الطهي بالبيت يخفض السعرات 500 سعرة في المتوسط عن المطاعم']},
+ {id:'ax',nm:'القلق والصحة النفسية',sub:'توازن نفسي وهدوء داخلي',img:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=88&h=88&fit=crop&q=80',tips:['تمرين 4-7-8: يفعّل الجهاز العصبي السمبثاوي ويوقف نوبة القلق فوراً','اكتب قلقك في دفتر يومياً — يحول الأفكار من الدماغ لخارجه','الرياضة 30 دقيقة تطلق الإندورفين والسيروتونين — تأثيرها كالمضادات الاكتئاب','قطع وسائل التواصل ساعتين يومياً يخفض القلق لدى 70% من المستخدمين','التأمل 10 دقائق يومياً يغير هيكل الدماغ (Neuroplasticity) بعد 8 أسابيع','ما تأكله يؤثر على مزاجك — الأمعاء تصنع 90% من السيروتونين','النوم الكافي ضروري — قلة النوم تضاعف الاستجابة العاطفية للمحفزات السلبية','لا تتردد في طلب مساعدة متخصص — العلاج النفسي فعال كالدواء']}
+];
 
-        // ===== HEALTH TIPS DATA =====
-        const healthCategories = [
-            {
-                name: "🩸 مرض السكري",
-                subtitle: "نصائح غذائية وحياتية",
-                img: "https://images.unsplash.com/photo-1576671081837-49000212a370?w=120&h=120&fit=crop&auto=format",
-                tips: [
-                    "تناول وجبات صغيرة ومتكررة (5-6 وجبات يومياً) للحفاظ على استقرار مستوى السكر في الدم",
-                    "أكثر من الألياف الغذائية: الخضروات، الحبوب الكاملة، العدس والفول لإبطاء امتصاص السكر",
-                    "تجنب السكريات المكررة والمشروبات الغازية والحلويات المصنعة",
-                    "ممارسة الرياضة 30 دقيقة يومياً تساعد على تحسين حساسية الأنسولين بشكل ملحوظ",
-                    "راقب مستوى السكر بانتظام وسجّل القراءات لمتابعة دقيقة مع طبيبك",
-                    "الماء هو المشروب الأفضل — تجنب العصائر حتى الطبيعية منها بكميات كبيرة"
-                ]
-            },
-            {
-                name: "🫘 أمراض الكلى",
-                subtitle: "حماية وقاية ورعاية",
-                img: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=120&h=120&fit=crop&auto=format",
-                tips: [
-                    "اشرب ما بين 8-10 أكواب ماء يومياً للمساعدة على طرد السموم وتنقية الكلى",
-                    "قلّل من تناول الملح والبروتين الحيواني الزائد لتخفيف الضغط على الكلى",
-                    "تجنب مضادات الالتهاب غير الستيرويدية (مثل Ibuprofen) دون استشارة طبيب",
-                    "راقب ضغط الدم بانتظام؛ ارتفاعه من أكثر العوامل ضرراً للكلى",
-                    "تجنب التدخين الذي يضيق الأوعية الدموية ويزيد الضغط على الكلى",
-                    "الفحص الدوري للكرياتينين والبول الكامل ضروري للكشف المبكر"
-                ]
-            },
-            {
-                name: "💇 تساقط الشعر",
-                subtitle: "تغذية وعلاج طبيعي",
-                img: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=120&h=120&fit=crop&auto=format",
-                tips: [
-                    "أكثر من البروتينات: البيض، السمك، العدس والمكسرات لأنها تغذي بصيلات الشعر",
-                    "نقص الحديد والزنك والبيوتين من أكثر أسباب التساقط؛ افحص مستوياتها",
-                    "تدليك الرأس بزيت الخروع أو جوز الهند 3 مرات أسبوعياً يحفز الدورة الدموية",
-                    "تجنب الشامبو الكيميائي القوي وجفف شعرك بلطف دون احتكاك قوي",
-                    "ادارة الضغط النفسي بالرياضة والنوم الكافي — التوتر من أهم أسباب التساقط",
-                    "استشر طبيباً إذا استمر التساقط أكثر من 3 أشهر للكشف عن أسباب هرمونية"
-                ]
-            },
-            {
-                name: "✨ حب الشباب والبشرة",
-                subtitle: "نصائح للبشرة الصحية",
-                img: "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?w=120&h=120&fit=crop&auto=format",
-                tips: [
-                    "اغسل وجهك مرتين يومياً فقط بغسول خفيف مناسب لنوع بشرتك، لا أكثر",
-                    "تجنب لمس الوجه باليدين طوال اليوم — اليدان ناقلتا رئيسيتان للبكتيريا",
-                    "قلّل من الحليب ومنتجاته والسكر المكرر؛ لها ارتباط قوي بحب الشباب",
-                    "المرطب غير الدهني مهم حتى للبشرة الدهنية لحمايتها من فرط إفراز الزيوت",
-                    "استخدم واقي الشمس يومياً لحماية البشرة من التصبغات والتندبات",
-                    "الريتينول والنياسيناميد من أفضل المكونات المثبتة لعلاج حب الشباب وآثاره"
-                ]
-            },
-            {
-                name: "🫀 ضغط الدم",
-                subtitle: "التوازن الحيوي",
-                img: "https://images.unsplash.com/photo-1615461066841-6116e61058f4?w=120&h=120&fit=crop&auto=format",
-                tips: [
-                    "قلّل الملح إلى أقل من 5 جرام يومياً (ملعقة صغيرة) — الملح العدو الأول لضغط الدم",
-                    "الثوم الطازج يحتوي على الأليسين الذي يساعد على تخفيض ضغط الدم بشكل طبيعي",
-                    "البوتاسيوم في الموز والبطاطا والسبانخ يعادل تأثير الصوديوم ويخفض الضغط",
-                    "ممارسة رياضة المشي 30 دقيقة يومياً تخفض الضغط بمعدل 5-8 نقاط",
-                    "تجنب القهوة المفرطة والتدخين وتأكد من نوم جيد لا يقل عن 7-8 ساعات",
-                    "قس ضغطك في المنزل صباحاً قبل الأكل للحصول على قراءة دقيقة"
-                ]
-            },
-            {
-                name: "🦴 آلام المفاصل",
-                subtitle: "التهاب المفاصل والروماتيزم",
-                img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=120&h=120&fit=crop&auto=format",
-                tips: [
-                    "الكركم مع الفلفل الأسود من أقوى مضادات الالتهاب الطبيعية — تناوله يومياً",
-                    "أحماض أوميغا 3 الموجودة في السمك الزيتي تقلل التهاب المفاصل بشكل ملموس",
-                    "الوزن الزائد يضاعف الضغط على ركبتيك — خسارة 5 كيلو تحسّن الألم بـ 50%",
-                    "الكمادات الساخنة تريح عضلات متصلبة، والباردة تقلل التورم الحاد",
-                    "تمارين الإطالة اليومية تحافظ على مرونة المفاصل وتبطئ التدهور",
-                    "فيتامين D والكالسيوم ضروريان لصحة العظام — احرص على مصادرهما الغذائية"
-                ]
-            },
-            {
-                name: "😴 اضطرابات النوم",
-                subtitle: "للنوم الهادئ والمريح",
-                img: "https://images.unsplash.com/photo-1511295742362-92c96b1cf484?w=120&h=120&fit=crop&auto=format",
-                tips: [
-                    "احرص على نفس وقت النوم والاستيقاظ يومياً حتى في العطل لتثبيت ساعتك البيولوجية",
-                    "أطفئ الشاشات (الجوال، التلفاز) ساعة كاملة قبل النوم؛ الضوء الأزرق يمنع الميلاتونين",
-                    "درجة حرارة غرفة النوم المثالية 18-20 درجة مئوية تحفز النوم العميق",
-                    "البابونج والزعتر والحليب الدافئ من أفضل المشروبات المهدئة قبل النوم",
-                    "تجنب الكافيين بعد الساعة الثالثة مساءً لأن تأثيره قد يمتد لـ 8 ساعات",
-                    "تقنية التنفس 4-7-8: شهيق 4 ثواني، احتباس 7، زفير 8 — تحث على النوم بشكل فعال"
-                ]
-            },
-            {
-                name: "🌿 جفاف الجلد",
-                subtitle: "ترطيب وحماية البشرة",
-                img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=120&h=120&fit=crop&auto=format",
-                tips: [
-                    "رطّب بشرتك مباشرة بعد الاستحمام وهي لا تزال رطبة قليلاً لحبس الرطوبة",
-                    "اختر مرطبات تحتوي على حمض الهيالورونيك أو الجلسرين أو الشيا باتر",
-                    "الاستحمام بالماء الفاتر لا الساخن — الماء الحار يزيل الدهون الطبيعية الواقية للجلد",
-                    "اشرب الماء بانتظام طوال اليوم؛ الترطيب الداخلي يبدأ من الداخل لا من الكريمات",
-                    "أوميغا 3 وفيتامين E من الأغذية أو المكملات تحسّن مرونة الجلد بشكل ملحوظ",
-                    "استخدم مرطب هواء في الغرفة خاصة في فصل الشتاء لمنع جفاف الجلد الليلي"
-                ]
-            }
-        ];
+function renderTips(data){
+ document.getElementById('tlist').innerHTML=data.map(c=>`
+  <div class="tcat" id="tc${c.id}">
+   <div class="tcat-h" onclick="togTip('${c.id}')">
+    <img class="tcat-img" src="${c.img}" alt="${c.nm}" loading="lazy" onerror="this.style.opacity=0">
+    <div class="tcat-info"><div class="tcat-name">${c.nm}</div><div class="tcat-sub">${c.sub}</div></div>
+    <span class="tarrow">›</span>
+   </div>
+   <div class="tbody">${c.tips.map(t=>`<div class="titem"><span class="tdot"></span>${t}</div>`).join('')}</div>
+  </div>`).join('');
+}
+renderTips(TIPS);
+function togTip(id){document.getElementById('tc'+id).classList.toggle('open')}
+document.getElementById('tsrch').addEventListener('input',function(){
+ const q=this.value.trim().toLowerCase();
+ renderTips(!q?TIPS:TIPS.filter(c=>c.nm.includes(q)||c.sub.includes(q)||c.tips.some(t=>t.includes(q))));
+});
 
-        // ===== BUILD PRODUCTS =====
-        const container = document.getElementById('shop-container');
-        let allCards = [];
+/* ══ ORDER MODAL ══ */
+let qty=1,curProd={};
+function openModal(n,p){
+ curProd={n,p};qty=1;
+ document.getElementById('mname').textContent=n;
+ document.getElementById('qdsp').textContent=1;
+ ['cname','cphone','cstate'].forEach(id=>document.getElementById(id).value='');
+ document.getElementById('modal').classList.add('open');
+ document.body.style.overflow='hidden';
+}
+function closeModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}
+function chQty(v){qty=Math.max(1,qty+v);document.getElementById('qdsp').textContent=qty;}
+async function submitOrd(){
+ const n=document.getElementById('cname').value.trim();
+ const ph=document.getElementById('cphone').value.trim();
+ const st=document.getElementById('cstate').value.trim();
+ if(!n||!ph||!st){alert('يرجى ملء جميع الحقول');return;}
+ const btn=document.getElementById('sbmt');
+ btn.textContent='⏳ جاري الإرسال...';btn.disabled=true;
+ try{
+  await fetch(WEB_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({customer:n,phone:ph,location:st,product:curProd.n,price:curProd.p,quantity:qty})});
+  alert('✅ تم إرسال طلبك! سنتواصل معك قريباً');
+  closeModal();
+ }catch{alert('❌ خطأ في الإرسال، يرجى المحاولة لاحقاً');}
+ finally{btn.textContent='إرسال الطلب ←';btn.disabled=false;}
+}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target===document.getElementById('modal'))closeModal();});
 
-        inventory.forEach(section => {
-            const block = document.createElement('div');
-            block.className = 'section-block';
-            block.dataset.category = section.category;
-            block.innerHTML = `
-                <div class="section-header">
-                    <div class="section-icon">${section.icon}</div>
-                    <div>
-                        <div class="section-label">منتجاتنا</div>
-                        <div class="section-title">${section.category}</div>
-                    </div>
-                </div>
-                <div class="product-grid">
-                    ${section.items.map(item => `
-                        <div class="product-card" data-name="${item.name.toLowerCase()}" onclick="openModal('${item.name.replace(/'/g,"\\'")}', '${item.price}')">
-                            <div class="card-img-wrap">
-                                <img src="${item.img}" alt="${item.name}" loading="lazy">
-                            </div>
-                            <div class="card-body">
-                                <div class="card-name">${item.name}</div>
-                                <div class="card-price">${item.price}</div>
-                                <button class="order-btn">
-                                    <span>🛒</span> اطلب الآن
-                                </button>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>`;
-            container.insertBefore(block, document.getElementById('noResults'));
-            allCards.push(...block.querySelectorAll('.product-card'));
-        });
+/* ══ SMART AI CHATBOT ══ */
+let chatOpen=false;
+// conversation history for context
+let convHistory=[];
 
-        // ===== BUILD HEALTH TIPS SIDEBAR =====
-        const tipsContainer = document.getElementById('healthTips');
-        healthCategories.forEach((cat, i) => {
-            const div = document.createElement('div');
-            div.className = 'health-category';
-            div.innerHTML = `
-                <button class="cat-toggle" onclick="toggleCat(this, ${i})">
-                    <div class="cat-header">
-                        <img class="cat-img" src="${cat.img}" alt="${cat.name}" loading="lazy" onerror="this.style.display='none'">
-                        <div class="cat-info">
-                            <div class="cat-name">${cat.name}</div>
-                            <div class="cat-subtitle">${cat.subtitle}</div>
-                        </div>
-                        <span class="cat-arrow">▼</span>
-                    </div>
-                </button>
-                <div class="cat-content" id="cat-${i}">
-                    <div class="tip-list">
-                        ${cat.tips.map(t => `
-                            <div class="tip-item">
-                                <div class="tip-dot"></div>
-                                <span>${t}</span>
-                            </div>`).join('')}
-                    </div>
-                </div>`;
-            tipsContainer.appendChild(div);
-        });
+const SUGGS=['ما هي أعراض السكري؟','علاج حب الشباب الطبيعي','هل الأوميغا 3 مفيد للقلب؟','أعاني من آلام المفاصل','كيف أحسّن نومي؟','كيف أطلب منتجاً؟'];
 
-        function toggleCat(btn, i) {
-            const content = document.getElementById('cat-' + i);
-            const isOpen = content.classList.contains('open');
-            // Close all
-            document.querySelectorAll('.cat-content').forEach(c => c.classList.remove('open'));
-            document.querySelectorAll('.cat-toggle').forEach(b => b.classList.remove('active'));
-            if (!isOpen) {
-                content.classList.add('open');
-                btn.classList.add('active');
-            }
-        }
+// Full medical knowledge base
+const MEDIC={
+ greet:/مرحبا|السلام|أهلا|هلا|هاي|hi|hello|مرحب|صباح|مساء/i,
+ howAre:/كيف حالك|كيفك|عامل|بخير|شو أخبار|كيف الأحوال|كيفكم/i,
+ thanks:/شكرا|شكراً|مرسي|تسلم|بارك|يعطيك|ربي يخليك/i,
+ bye:/مع السلامة|وداعا|باي|bye|الى اللقاء/i,
+ who:/من أنت|مين أنت|ما أنت|شو اسمك|تعريف/i,
+ hours:/أوقات|ساعات|وقت|متى تفتح|دوام|فتح|مفتوح/i,
+ delivery:/توصيل|يوصل|شحن|ارسال|يوصلوا|خارج|ولاية/i,
+ order:/طلب|اطلب|اشتري|كيف آخد|أين أضغط/i,
+ price:/سعر|ثمن|كم يكلف|غالي|رخيص|تكلفة/i,
+ location:/عنوان|موقع|أين|مكان|قرارة|غرداية/i,
+ diabetes:/سكري|سكر|داء السكري|غلوكوز|انسولين|ذكري|سكريات/i,
+ blood_pressure:/ضغط|هايبرتنشن|ضغط مرتفع|هايبر/i,
+ kidney:/كلى|كلية|حصى|بول|كلوي/i,
+ hair:/شعر|تساقط|صلع|قشرة|شعري/i,
+ acne:/حب الشباب|بثور|حبوب وجه|بشرة دهنية|أكنى/i,
+ dry_skin:/جفاف الجلد|جلد جاف|أكزيما|حكة|جلد/i,
+ joints:/مفاصل|روماتيزم|ركبة|ظهر|مفصل|آلام المفاصل/i,
+ stomach:/معدة|هضم|حرقة|انتفاخ|إسهال|إمساك|قولون/i,
+ sleep:/نوم|أرق|نعاس|أنام|ينام|نوم مقطع/i,
+ immunity:/مناعة|برد|انفلونزا|فيروس|مقاومة/i,
+ heart:/قلب|شرايين|كوليسترول|دهون الدم|قلبي/i,
+ nutrition:/أكل|غذاء|تغذية|وجبة|رجيم|وزن|سمنة|دايت/i,
+ anxiety:/قلق|توتر|اكتئاب|وسواس|نفسي|إجهاد/i,
+ moov:/moov|موف|جل للألم/i,
+ voltaren:/فولترين|voltaren|فولتارين/i,
+ omega:/omega|أوميغا|أوميجا|biomax|سمك دهني/i,
+ diapers:/حفاض|حفاضة|couche|bebe|بيبي/i,
+ talc:/talc|بودرة|douce|دوس|baby powder/i,
+};
 
-        // ===== SEARCH =====
-        function filterProducts(query) {
-            const q = query.toLowerCase().trim();
-            const resultsEl = document.getElementById('resultsCount');
-            let visibleCount = 0;
+const RESPONSES={
+ greet:()=>`أهلاً وسهلاً! 👋 أنا د. بوت، مساعدك الصحي في صيدلية بن لولو.\n\nيمكنني مساعدتك في:\n🩺 النصائح الطبية والصحية\n💊 معلومات المنتجات\n🚚 الطلبات والتوصيل\n\nما الذي يمكنني مساعدتك فيه؟`,
+ howAre:()=>`أنا بخير وجاهز لخدمتك! 😊\nكيف أستطيع مساعدتك اليوم؟ سواء كان سؤالاً طبياً أو عن منتجاتنا أنا هنا.`,
+ thanks:()=>`العفو بكل سرور! 💚\nصحتك أهم شيء بالنسبة لنا. إذا كان لديك أي سؤال آخر لا تتردد.`,
+ bye:()=>`مع السلامة! 👋\nنتمنى لك الصحة والعافية دائماً. لا تتردد في العودة لأي استفسار 💚`,
+ who:()=>`أنا د. بوت 🤖👨‍⚕️\nمساعد ذكي متخصص في الصحة والصيدلة لصيدلية بن لولو.\nلديّ معرفة طبية شاملة في:\n• الأمراض المزمنة والتغذية\n• صحة الجلد والشعر\n• المكملات الغذائية والأدوية\nهل لديك سؤال صحي؟`,
+ hours:()=>`🕐 أوقات عملنا:\n• السبت – الخميس: 8:00 – 12:00 صباحاً\n• ثم: 15:00 – 21:00 مساءً\n• الجمعة: مغلق\n\nللطوارئ اتصل على: 📞 0558 06 11 59`,
+ delivery:()=>`🚚 نعم! نوصل لجميع ولايات الجزائر.\n• التوصيل خلال 24 – 48 ساعة\n• الدفع عند الاستلام (كاش)\n• اتصل بنا لمعرفة تفاصيل تكلفة الشحن لولايتك: 0558 06 11 59`,
+ order:()=>`🛒 طريقة الطلب سهلة:\n1️⃣ انقر على المنتج\n2️⃣ اختر الكمية\n3️⃣ أدخل اسمك وهاتفك وولايتك\n4️⃣ اضغط "إرسال الطلب"\n✅ سنتصل بك خلال ساعة لتأكيد الطلب`,
+ price:()=>`💰 الأسعار متاحة مباشرة على الموقع عند كل منتج.\nللاستفسار عن سعر محدد اتصل بنا: 📞 0558 06 11 59`,
+ location:()=>`📍 موقعنا:\nحي أينورار، بلدية القرارة، ولاية غرداية.\n\nيمكنك فتح الخريطة من أسفل الصفحة أو الاتصال بنا:\n📞 0558 06 11 59`,
+ diabetes:()=>`🩺 نصائح طبية لمرض السكري:\n\n**الغذاء:**\n• تجنب السكريات المكررة والأبيض (خبز، أرز، عصائر)\n• الكربوهيدرات المعقدة: شوفان، حبوب كاملة، بقوليات\n• وزن الطعام ومعرفة المؤشر الجلايسيمي (GI) مهم جداً\n\n**النشاط:**\n• المشي 30 دقيقة بعد كل وجبة يخفض السكر مباشرة\n• الرياضة المنتظمة تحسن حساسية الأنسولين طويلاً\n\n**المتابعة:**\n• HbA1c كل 3 أشهر\n• قياس السكر يومياً في نفس الأوقات\n• فحص القدم الدوري\n\nلدينا BIOMAX OMEGA 3.6.9 مفيد لمضاعفات السكري 💊`,
+ blood_pressure:()=>`❤️ نصائح طبية لضغط الدم المرتفع:\n\n**التغذية:**\n• الصوديوم أقل من 1500mg/يوم — قرأ الملصقات\n• DASH Diet: خضروات، فواكه، حليب خالي الدسم\n• البوتاسيوم (موز، سبانخ) يوازن الصوديوم في الجسم\n\n**النمط الحياتي:**\n• 150 دقيقة رياضة هوائية أسبوعياً\n• تخفيض 5 كيلو وزن = تخفيض 5 نقاط ضغط\n• تمرين التنفس العميق يومياً 10 دقائق\n\n**المراقبة:**\n• قس ضغطك صباحاً قبل الأكل يومياً\n• الدواء المنتظم لا تتركه حتى عند الراحة\n\n⚠️ استشر طبيبك دائماً قبل تغيير جرعة الدواء`,
+ kidney:()=>`🫘 نصائح طبية لصحة الكلى:\n\n**الوقاية:**\n• الماء: 2-2.5 لتر يومياً = أهم دواء للكلى\n• تحكم في ضغط الدم والسكر — هما سبب 80% من الفشل الكلوي\n• تجنب NSAIDs (ادفيل، فولتارين داخلياً) بدون وصفة\n\n**الغذاء:**\n• قلل الملح، البروتين الزائد، والفوسفور (غازيات كولا)\n• البروتين النباتي أخف على الكلى من الحيواني\n\n**الفحوصات:**\n• Creatinine + GFR كل 6 أشهر إذا كان لديك خطر\n• ضغط الدم المثالي للكلى: أقل من 130/80\n\n⚠️ لا تستخدم أعشاباً أو مكملات دون استشارة طبيب الكلى`,
+ hair:()=>`💆 نصائح طبية لتساقط الشعر:\n\n**أسباب شائعة:**\n• نقص الحديد (Ferritin < 70) — السبب الأول لدى النساء\n• نقص فيتامين D — فحص ضروري\n• اضطرابات الغدة الدرقية — TSH يجب فحصه\n• قصور هرموني عند الرجال (DHT)\n\n**العلاجات المثبتة علمياً:**\n• مينوكسيديل 5% — الأكثر فاعلية وآمن\n• زيت الروزماري — دراسات تثبت فاعليته كالمينوكسيديل\n• البيوتين 5000mcg يومياً إذا كان هناك نقص\n\n**العناية اليومية:**\n• تدليك 5 دقائق يومياً بزيت جوجوبا\n• تجنب الشامبو المحتوي على SLS و Sulfate\n\nاستشر طبيب جلدية لتحديد السبب الدقيق`,
+ acne:()=>`✨ نصائح طبية لعلاج حب الشباب:\n\n**المسببات الرئيسية:**\n• فرط إفراز الدهون + بكتيريا P. acnes\n• الهرمونات — خاصة عند المراهقين والإناث\n• السكريات عالية GI والألبان تفاقم الحبوب\n\n**بروتوكول العلاج:**\n• صباحاً: غسول حمض الساليسيليك 2% + مرطب + واقي شمس\n• مساءً: تنظيف + رتينول أو Benzoyl Peroxide\n\n**محظورات:**\n• لا تعصر البثور أبداً — ندوب دائمة\n• لا تتناول مضادات حيوية وحدها بدون ريتينويد\n\n**للحالات الشديدة:**\n• إيزوتريتينوين (Roaccutane) الأفعل — تحت إشراف طبيب\n• لا تلمس وجهك وغير وسادتك كل 3 أيام`,
+ dry_skin:()=>`💧 نصائح طبية لجفاف الجلد والأكزيما:\n\n**الروتين اليومي:**\n• استحم بماء فاتر لا ساخن — 37° الحد الأقصى\n• مدة الاستحمام: 10 دقائق فقط\n• ضع المرطب خلال 3 دقائق (بينما الجلد رطب)\n\n**أفضل مكونات المرطب:**\n• Ceramide — يعيد بناء الحاجز الجلدي\n• Urea 5-10% — للجفاف الشديد\n• Hyaluronic Acid — يجذب الرطوبة\n\n**للأكزيما:**\n• كريم Hydrocortisone 1% للأماكن المشتعلة\n• تجنب العطور، الصابون القلوي، الملابس الصوفية\n• مرطب الهواء في الغرفة (الرطوبة 40-60%)\n\n⚠️ الأكزيما المزمنة تحتاج طبيب جلدية`,
+ joints:()=>`🦴 نصائح طبية لآلام المفاصل:\n\n**للألم الحاد (أول 48 ساعة):**\n• RICE: راحة، ثلج 20 دقيقة، ضغط خفيف، رفع العضو\n• لدينا جل Moov وVoltaren فعالان للتخفيف الموضعي\n\n**للألم المزمن:**\n• الكمادات الدافئة + تمارين الإطالة اليومية\n• Omega 3 + كركم يخففان الالتهاب طبيعياً\n• Glucosamine + Chondroitin للغضاريف (نتائج بعد 3 أشهر)\n\n**التمارين الآمنة:**\n• سباحة، دراجة، يوجا للمفاصل — بلا صدمة\n• تجنب القفز والركض على الأسفلت\n\n**تحذير:**\n• NSAID لأكثر من 5 أيام تحتاج وصفة طبية\n\nجل Voltaren متاح عندنا 💊`,
+ stomach:()=>`🫃 نصائح طبية للمعدة والهضم:\n\n**للحرقة والارتجاع:**\n• لا تأكل قبل النوم بأقل من 3 ساعات\n• ارفع رأس السرير 15 سم\n• تجنب: قهوة، شوكولا، نعناع، حار، كحول\n• Omeprazole 20mg فبل الأكل بـ 30 دقيقة إذا دائم\n\n**للانتفاخ والغازات:**\n• مضغ بطيء جداً = أقل هواء مبتلع\n• Simethicone أو شاي النعناع بعد الوجبة\n• البروبيوتيك يتحسن بعد 4 أسابيع استخدام\n\n**للإمساك:**\n• 30g ألياف يومياً + 2L ماء + حركة\n• البرقوق والتين طبيعيان وفعالان\n\n⚠️ دم في البراز أو فقدان وزن → طبيب فوراً`,
+ sleep:()=>`😴 نصائح طبية لتحسين النوم:\n\n**نظافة النوم (Sleep Hygiene):**\n• نفس موعد النوم والاستيقاظ 7/7 أيام\n• غرفة مظلمة 100% + بارة 18-20°\n• أوقف الشاشات ساعة قبل النوم (ضوء أزرق)\n\n**المكملات الآمنة:**\n• Melatonin 0.5-3mg — 30 دقيقة قبل النوم\n• Magnesium Glycinate 300mg — يرخي العضلات\n\n**تقنية 4-7-8:**\n• استنشق ببطء 4 ثوان → احبس 7 ثوان → أخرج ببطء 8 ثوان\n• كررها 4 مرات → تفعل المبهمي وتهدئ القلق\n\n**تجنب:**\n• الكافيين بعد الساعة 14:00 (نصف عمره 6 ساعات)\n• الكحول — يدمر النوم العميق REM`,
+ immunity:()=>`🛡️ نصائح طبية لتقوية المناعة:\n\n**الأساسيات العلمية:**\n• فيتامين D: 2000 IU يومياً (أهم عامل)\n• فيتامين C: 500mg يومياً من الغذاء أو مكملات\n• Zinc: 15-30mg — يقصر مدة الأمراض 33%\n\n**نمط الحياة:**\n• النوم 7-9 ساعات — في النوم تُنتج خلايا NK المناعية\n• رياضة معتدلة — الشديدة تخفض المناعة مؤقتاً\n• تقليل التوتر — الكورتيزول يقمع الخلايا اللمفاوية\n\n**التغذية:**\n• البروبيوتيك يقوي 70% من الجهاز المناعي في الأمعاء\n• الثوم والزنجبيل مضادات ميكروبية طبيعية\n• ألوان متنوعة في طبقك = مضادات أكسدة متنوعة\n\nلدينا BIOMAX OMEGA 3.6.9 يدعم المناعة 💊`,
+ heart:()=>`❤️ نصائح طبية لصحة القلب:\n\n**عوامل الخطر الرئيسية:**\n• LDL > 130 + تدخين + ضغط مرتفع + سكري = خطر عالٍ\n\n**الوقاية:**\n• Omega 3 (2g/يوم) يخفض الدهون الثلاثية 30%\n• Statin إذا LDL > 190 أو عند وجود خطورة\n• 150 دقيقة رياضة هوائية أسبوعياً تخفض الخطر 35%\n\n**التغذية القلبية:**\n• Mediterranean Diet = الأفضل علمياً للقلب\n• تجنب Trans fat في الزيوت المهدرجة والوجبات السريعة\n• Dark Chocolate 70%+ يحسن وظيفة الأوعية\n\n**فحوصات دورية:**\n• كوليسترول + ضغط + سكر كل سنة بعد 35\n• ECG إذا كان هناك تاريخ عائلي\n\nلدينا BIOMAX OMEGA 3.6.9 💊`,
+ nutrition:()=>`🥗 نصائح التغذية الصحية المتوازنة:\n\n**طبق المثالي:**\n• 50% خضروات وفواكه ملونة (ألوان متعددة)\n• 25% بروتين (دجاج، سمك، بقوليات)\n• 25% كربوهيدرات معقدة (حبوب كاملة، بطاطا)\n\n**مفاتيح النجاح:**\n• ابدأ وجباتك بالخضروات — يبطئ امتصاص السكر\n• توقف عند 80% شبع (Hara Hachi Bu — أسلوب ياباني)\n• 3 وجبات منتظمة أفضل من 5 وجبات مشتتة\n\n**تجنب:**\n• السكر المضاف > 25g/يوم للنساء، 36g للرجال\n• الأكل أمام الشاشة — يزيد الاستهلاك 40%\n• التجويع الشديد — يسبب نهم عصبي عكسي`,
+ anxiety:()=>`🧘 نصائح طبية للقلق والتوتر:\n\n**العلاجات الأولى:**\n• تمرين 4-7-8 للتنفس — يوقف نوبة القلق خلال دقيقتين\n• اليوغا والتأمل 10 دقائق/يوم — تغير الدماغ علمياً بعد 8 أسابيع\n\n**المكملات الداعمة:**\n• Magnesium Glycinate — يخفض القلق ويحسن النوم\n• Omega 3 — يخفض الالتهاب العصبي المرتبط بالاكتئاب\n• أشواغاندا (Ashwagandha) — مكيفات الإجهاد مثبتة علمياً\n\n**نمط الحياة:**\n• الرياضة 30 دقيقة = 10mg Lexapro في تأثير الاكتئاب الخفيف\n• قطع وسائل التواصل يومياً ساعتين على الأقل\n• اكتب 3 أشياء ممتنة لها يومياً (علم الامتنان)\n\n⚠️ القلق المزمن والاكتئاب يحتاجان طبيب نفسي متخصص`,
+ moov:()=>`💊 Moov — جل مسكن سريع المفعول:\n\n**تركيبه الفعال:**\n• Diclofenac Diethylamine — مضاد التهاب قوي\n• Menthol — يعطي إحساس تبريد فوري\n\n**الاستخدام الصحيح:**\n• ضع كمية صغيرة على المنطقة المؤلمة\n• ادلك بحركة دائرية خفيفة 2-3 دقائق\n• 3-4 مرات يومياً حسب الحاجة\n• لا تضعه تحت ضمادة محكمة — يزيد الامتصاص بشكل خطير\n\n**متى تستخدمه؟**\n• آلام العضلات بعد الرياضة\n• آلام الظهر الخفيفة والمتوسطة\n• التواء المفاصل والكدمات\n\nمتاح عندنا بحجم 100g و50g 🛒`,
+ voltaren:()=>`💊 Voltaren — مضاد التهاب قوي:\n\n**المادة الفعالة:**\n• Diclofenac Sodium 1% جل\n\n**فعّال جداً لـ:**\n• التهاب المفاصل الخفيف والمتوسط\n• التهاب الأوتار والأربطة\n• آلام الرياضة والإصابات\n\n**الاستخدام:**\n• 2-4g على المنطقة المؤلمة\n• 3-4 مرات يومياً لمدة أسبوع\n• اغسل يديك بعد الوضع\n• تجنب الوجه والأغشية المخاطية\n\n**مزايا الجل مقارنة بالأقراص:**\n• يعمل موضعياً — أقل أضراراً على المعدة\n• تركيز أعلى في المنطقة المؤلمة\n\nمتاح عندنا! 🛒`,
+ omega:()=>`🌿 BIOMAX OMEGA 3.6.9 — مكمل شامل:\n\n**تركيبه:**\n• Omega 3 (EPA + DHA) — للقلب والدماغ\n• Omega 6 (GLA) — لصحة الجلد والهرمونات\n• Omega 9 — لتحسين الكوليسترول\n\n**فوائده المثبتة علمياً:**\n• يخفض الدهون الثلاثية 20-30%\n• يقلل التهاب المفاصل والروماتيزم\n• يحسن وظائف الدماغ والذاكرة\n• يدعم صحة الجلد والشعر والأظافر\n• يخفض خطر أمراض القلب\n\n**الجرعة الموصى بها:**\n• كبسولة أو كبسولتين بعد الأكل مع الماء\n• الاستمرار 3 أشهر لرؤية نتائج واضحة\n\nمتاح عندنا! 🛒`,
+ diapers:()=>`👶 حفاضاتنا المتاحة:\n\n**للأطفال CAN BEBE:**\n• N1: للأوزان حتى 5 كيلو\n• N2: 3-6 كيلو\n• N3: 4-9 كيلو\n• كمية 9 قطع في كل عبوة\n\n**للكبار UNIFORM:**\n• Culotte M وL — سراويل داخلية ناعمة\n• Scratch M وL — بمشابك للمرضى وكبار السن\n\n**نصيحة:**\n• غير الحفاض كل 3-4 ساعات لتجنب التهيج\n• استخدم Douce Plus Talc لحماية الجلد\n\nاطلب الآن! 🛒`,
+ talc:()=>`🌸 Douce Plus Talc 100g:\n\n**فوائده:**\n• يحمي جلد الطفل من الاحتكاك والتهيج\n• يمتص الرطوبة الزائدة\n• يمنع طفح الحفاضة\n• لطيف جداً على البشرة الحساسة\n\n**الاستخدام الصحيح:**\n• نظف وجفف الجلد جيداً\n• ضع كمية صغيرة على الجلد الجاف\n• تجنب منطقة التنفس عند تطبيقه\n\n**تحذير:**\n• لا تستخدمه بالقرب من وجه الطفل\n• ابتعد عن الاستنشاق\n\nمتاح عندنا! 🛒`,
+ default:()=>`شكراً على سؤالك 😊\n\nيمكنني مساعدتك في:\n🩺 **طبي:** السكري، الضغط، الكلى، الجلد، الشعر، المفاصل، النوم، المناعة، القلب...\n💊 **منتجاتنا:** Moov، Voltaren، Omega 3، حفاضات...\n🚚 **خدماتنا:** طلب، توصيل، أوقات عمل...\n\nاكتب موضوعك وسأجيبك بالتفصيل!`
+};
 
-            document.querySelectorAll('.section-block').forEach(block => {
-                const cards = block.querySelectorAll('.product-card');
-                let blockVisible = 0;
-                cards.forEach(card => {
-                    const name = card.dataset.name;
-                    const match = !q || name.includes(q);
-                    card.style.display = match ? '' : 'none';
-                    if (match) { blockVisible++; visibleCount++; }
-                });
-                block.style.display = blockVisible > 0 ? '' : 'none';
-            });
+function getBotReply(text){
+ const t=text.toLowerCase();
+ for(const [key,regex] of Object.entries(MEDIC)){
+  if(regex.test(t)) return RESPONSES[key]?.()??RESPONSES.default();
+ }
+ return RESPONSES.default();
+}
 
-            const noResults = document.getElementById('noResults');
-            noResults.style.display = q && visibleCount === 0 ? 'block' : 'none';
+function toggleChat(){
+ chatOpen=!chatOpen;
+ const w=document.getElementById('cwin');
+ if(chatOpen){
+  w.classList.add('open');
+  document.getElementById('fbadge').style.display='none';
+  const msgs=document.getElementById('cmsgs');
+  if(!msgs.children.length){
+   addBot(RESPONSES.greet());
+   renderSuggs();
+  }
+  setTimeout(()=>document.getElementById('cinp').focus(),300);
+ } else {
+  w.classList.remove('open');
+ }
+}
 
-            if (q) {
-                resultsEl.textContent = visibleCount + ' نتيجة';
-                resultsEl.style.display = 'block';
-            } else {
-                resultsEl.style.display = 'none';
-            }
-        }
+function addBot(text){
+ const m=document.getElementById('cmsgs');
+ const d=document.createElement('div');
+ d.className='msg bot';
+ d.innerHTML=text.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+ const t=document.createElement('span');
+ t.className='mtime';
+ t.textContent=new Date().toLocaleTimeString('ar',{hour:'2-digit',minute:'2-digit'});
+ d.appendChild(t);
+ m.appendChild(d);
+ m.scrollTop=m.scrollHeight;
+}
+function addUser(text){
+ const m=document.getElementById('cmsgs');
+ const d=document.createElement('div');
+ d.className='msg user';
+ d.textContent=text;
+ const t=document.createElement('span');
+ t.className='mtime';
+ t.textContent=new Date().toLocaleTimeString('ar',{hour:'2-digit',minute:'2-digit'});
+ d.appendChild(t);
+ m.appendChild(d);
+ m.scrollTop=m.scrollHeight;
+}
+function showTyp(){
+ const m=document.getElementById('cmsgs');
+ const d=document.createElement('div');
+ d.className='typing-anim';d.id='typ';
+ d.innerHTML='<span></span><span></span><span></span>';
+ m.appendChild(d);m.scrollTop=m.scrollHeight;
+}
+function hideTyp(){const t=document.getElementById('typ');if(t)t.remove();}
 
-        // ===== MODAL =====
-        let currentQty = 1, currentProduct = {};
+function renderSuggs(){
+ document.getElementById('csugg').innerHTML=SUGGS.map(s=>`<button class="cs" onclick="quickSend('${s}')">${s}</button>`).join('');
+}
+function quickSend(t){document.getElementById('cinp').value=t;send();}
 
-        function openModal(name, price) {
-            currentProduct = { name, price };
-            currentQty = 1;
-            document.getElementById('modalProductName').textContent = name;
-            document.getElementById('qtyDisplay').textContent = 1;
-            ['custName','custPhone','custState'].forEach(id => document.getElementById(id).value = '');
-            document.getElementById('modal').classList.add('open');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            document.getElementById('modal').classList.remove('open');
-            document.body.style.overflow = '';
-        }
-
-        function changeQty(v) {
-            currentQty = Math.max(1, currentQty + v);
-            document.getElementById('qtyDisplay').textContent = currentQty;
-        }
-
-        async function submitOrder() {
-            const name = document.getElementById('custName').value.trim();
-            const phone = document.getElementById('custPhone').value.trim();
-            const state = document.getElementById('custState').value.trim();
-            if (!name || !phone || !state) { alert('يرجى ملء جميع الحقول'); return; }
-            const btn = document.getElementById('submitBtn');
-            btn.textContent = '⏳ جاري الإرسال...';
-            btn.disabled = true;
-            try {
-                await fetch(webUrl, {
-                    method: 'POST', mode: 'no-cors',
-                    body: JSON.stringify({ customer: name, phone, location: state, product: currentProduct.name, price: currentProduct.price, quantity: currentQty })
-                });
-                alert('✅ تم إرسال طلبك بنجاح! سنتواصل معك قريباً');
-                closeModal();
-            } catch { alert('❌ خطأ في الإرسال، يرجى المحاولة لاحقاً'); }
-            finally { btn.textContent = 'إرسال الطلب ←'; btn.disabled = false; }
-        }
-
-        document.getElementById('modal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
-
-        // ===== AI CHATBOT =====
-        let chatOpen = false;
-        const chatHistory = [];
-
-        const SYSTEM_PROMPT = `أنت مساعد صيدلي ذكي متخصص لصيدلية "بن لولو" في القرارة، غرداية، الجزائر. أنت صيدلاني خبير ومتعاطف.
-
-معلومات الصيدلية:
-- الاسم: صيدلية بن لولو
-- الموقع: حي أينورار، القرارة، غرداية، الجزائر
-- الهاتف: 0558 06 11 59
-- خدمة التوصيل متاحة لجميع الولايات خلال 48 ساعة
-- المنتجات: Moov (100g و50g)، Gel Scorpion، Voltaren Gel، حفاضات CAN BEBE، حفاضات Uniform للكبار، Douce Plus Talc، BIOMAX Omega 3.6.9
-
-قواعدك:
-1. أجب دائماً باللغة العربية بأسلوب دافئ ومهني
-2. قدم نصائح صحية دقيقة ومبنية على أدلة طبية
-3. اقترح المنتجات المتوفرة في الصيدلية عند الملاءمة
-4. دائماً انصح بمراجعة الطبيب للحالات الجدية
-5. كن موجزاً وعملياً في إجاباتك
-6. عند السؤال عن الأسعار، قل أن الأسعار تتغير وينصح بالاتصال على الرقم 0558 06 11 59
-7. أنت لست بديلاً عن الطبيب، لكنك تقدم إرشادات أولية قيمة`;
-
-        function toggleChat() {
-            chatOpen = !chatOpen;
-            document.getElementById('chatWindow').classList.toggle('open', chatOpen);
-            document.getElementById('chatBadge').style.display = chatOpen ? 'none' : 'flex';
-            if (chatOpen) document.getElementById('chatInput').focus();
-        }
-
-        function getTime() {
-            return new Date().toLocaleTimeString('ar-DZ', { hour: '2-digit', minute: '2-digit' });
-        }
-
-        function appendMsg(role, text) {
-            const msgs = document.getElementById('chatMessages');
-            const typing = document.getElementById('typingIndicator');
-            const div = document.createElement('div');
-            div.className = `msg ${role}`;
-
-            const avatar = role === 'bot' ? '🤖' : '👤';
-            div.innerHTML = `
-                <div class="msg-avatar">${avatar}</div>
-                <div>
-                    <div class="msg-bubble">${text.replace(/\n/g, '<br>')}</div>
-                    <div class="msg-time">${getTime()}</div>
-                </div>`;
-
-            msgs.insertBefore(div, typing);
-            msgs.scrollTop = msgs.scrollHeight;
-        }
-
-        function showTyping(show) {
-            document.getElementById('typingIndicator').classList.toggle('show', show);
-            const msgs = document.getElementById('chatMessages');
-            msgs.scrollTop = msgs.scrollHeight;
-        }
-
-        async function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const text = input.value.trim();
-            if (!text) return;
-            input.value = '';
-
-            appendMsg('user', text);
-            chatHistory.push({ role: 'user', content: text });
-            document.getElementById('quickReplies').style.display = 'none';
-
-            showTyping(true);
-
-            try {
-                const response = await fetch('https://rapid-field-46d4.benloulououssama33.workers.dev/', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        model: 'claude-sonnet-4-20250514',
-                        max_tokens: 1000,
-                        system: SYSTEM_PROMPT,
-                        messages: chatHistory.slice(-12)
-                    })
-                });
-
-                const data = await response.json();
-                const reply = data.content?.map(b => b.text || '').join('') || 'عذراً، حدث خطأ. يرجى المحاولة مرة أخرى.';
-                chatHistory.push({ role: 'assistant', content: reply });
-                showTyping(false);
-                appendMsg('bot', reply);
-
-            } catch (err) {
-                showTyping(false);
-                appendMsg('bot', 'عذراً، هناك مشكلة في الاتصال. يمكنك التواصل معنا مباشرة على: 0558 06 11 59 📞');
-            }
-        }
-
-        function sendQuickReply(text) {
-            document.getElementById('chatInput').value = text;
-            sendMessage();
-        }
-    </script>
+async function send(){
+ const inp=document.getElementById('cinp');
+ const text=inp.value.trim();
+ if(!text)return;
+ inp.value='';
+ document.getElementById('csugg').innerHTML='';
+ addUser(text);
+ showTyp();
+ // realistic delay
+ await new Promise(r=>setTimeout(r,600+Math.random()*800));
+ hideTyp();
+ addBot(getBotReply(text));
+ renderSuggs();
+}
+document.getElementById('cinp').addEventListener('keydown',e=>{if(e.key==='Enter')send();});
+</script>
 </body>
 </html>
